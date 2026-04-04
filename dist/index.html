@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enso 8 | Minimal Experience</title>
+    <meta name="description" content="A dark, premium, minimal landing page with a cinematic and interactive experience.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Michroma&family=Outfit:wght@200;300;400&display=swap" rel="stylesheet">
+    <style>
+        /* Essential critical overrides for layout positioning */
+        body {
+            background-color: #000000;
+        }
+    </style>
+  <script type="module" crossorigin src="/assets/index-DJqqdbNp.js"></script>
+  <link rel="stylesheet" crossorigin href="/assets/index--hIDSbYr.css">
+</head>
+<body>
+    <div id="canvas-container"></div>
+    <div id="center-glow"></div>
+    <div id="mouse-glow"></div>
+    <div class="grain"></div>
+    
+    <div id="experience-trigger" style="cursor: default;">
+        <div id="hero-ui" class="hero-center">
+            <img id="stabilized-logo" class="logo-enso" src="/assets/logo1-QqqFaGoo.png" alt="Enso 8">
+            <nav id="navigation-menu" class="navbar-links">
+                <a href="#" class="home-link nav-item">Home</a>
+                <a href="#" class="services-link nav-item">Services</a>
+                <a href="#" class="about-link nav-item">About Us</a>
+                <a href="#" class="contact-link nav-item">Contact</a>
+            </nav>
+        </div>
+
+        <div id="interaction-prompt">Scroll to Explore</div>
+    </div>
+
+    <!-- UI Elements -->
+    <div id="status-label" style="position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); font-size: 9px; letter-spacing: 0.3em; opacity: 0; color: rgba(255,255,255,0.2); transition: opacity 1s;">ENSO SERIES 8 SYSTEM 1.0.4</div>
+
+    <div id="about-bg"></div>
+
+    <div id="about-section" class="scroll-section">
+        <header class="about-header">
+            <div class="header-logo">enso 8</div>
+            <div class="hamburger">
+                <div class="line"></div>
+                <div class="line"></div>
+                <div class="line"></div>
+            </div>
+        </header>
+
+        <div class="about-content">
+            <div class="manifesto">
+                <p class="reveal-text">Our customer doesn’t buy advertising.</p>
+                <p class="reveal-text">They buy the feeling they get when your story becomes theirs.</p>
+                <p class="reveal-text">At Enso 8, we understand something most have forgotten: technology is a tool, not a replacement. AI can analyse a million data points. It can generate countless variations. It can work at speeds that leave human effort in the dust.</p>
+                <p class="reveal-text">Here is what it gives us: the freedom to focus on what matters most.</p>
+                <p class="reveal-text">While AI handles the heavy lifting: the testing, the optimisation and the endless iterations, we do what humans do best. We find the exact moment when a word shifts from clever to meaningful. We sense when a story stops being about your product and starts being about your customer's life.</p>
+                <p class="reveal-text">That's the partnership.</p>
+                <p class="reveal-text">We are storytellers first. Technologists second. And we refuse to choose between them.</p>
+                <p class="reveal-text">While others race to automate everything, we're doing something different. We harness the raw power of cutting-edge AI: its speed, its precision, its tireless ability to test and optimise, and we filter it through human intuition.</p>
+                <p class="reveal-text">The result? Advertising that doesn't just perform but resonates.</p>
+                
+                <div class="manifesto-end reveal-text">
+                    <div class="about-label">ABOUT US</div>
+                    <div class="head-icon">
+                       <svg width="45" height="45" viewBox="0 0 100 100" style="fill: var(--neon-blue); opacity: 0.8; filter: drop-shadow(0 0 10px rgba(0, 240, 255, 0.4));">
+                          <path d="M50,10 C30,10 15,25 15,45 C15,55 20,65 28,72 L28,95 C28,98 32,100 35,100 C37,100 40,98 42,95 L45,85 C48,88 52,90 55,90 C75,90 90,75 90,55 C90,45 85,35 77,28 C70,18 60,10 50,10 Z M50,80 L48,70 L35,85 L35,70 C25,62 20,53 20,45 C20,30 32,18 50,18 C68,18 80,30 80,45 C80,60 68,72 50,72 C48,72 45,71 42,70 L50,80 Z"/>
+                          <polygon points="50,35 53,44 62,45 54,51 57,60 50,54 43,60 46,51 38,45 47,44" />
+                       </svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <footer class="about-footer">
+            <div class="socials">
+                <div class="social-dot"></div>
+                <div class="social-dot"></div>
+                <div class="social-dot"></div>
+                <div class="social-dot"></div>
+            </div>
+        </footer>
+    </div>
+
+    <div id="services-section" class="scroll-section" style="opacity: 0; pointer-events: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 50; display: flex; align-items: center; justify-content: center;">
+        <div class="manifesto"><p style="color: white; font-family: var(--font-main); font-size: 2rem; letter-spacing: 5px;">SERVICES</p></div>
+    </div>
+
+    <div id="contact-section" class="scroll-section" style="opacity: 0; pointer-events: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 50; display: flex; align-items: center; justify-content: center;">
+        <div class="manifesto"><p style="color: white; font-family: var(--font-main); font-size: 2rem; letter-spacing: 5px;">CONTACT</p></div>
+    </div>
+
+    <!-- Three.js and GSAP via CDN for immediate execution -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+</body>
+</html>

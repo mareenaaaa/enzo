@@ -1,0 +1,22 @@
+<svg width="200" height="200" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="paint0_linear" x1="100" y1="20" x2="100" y2="180" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#00EEFF"/>
+      <stop offset="100%" stop-color="#0066FF"/>
+    </linearGradient>
+    <filter id="filter0_d" x="0" y="0" width="200" height="200" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+      <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"/>
+      <feOffset dy="10"/>
+      <feGaussianBlur stdDeviation="10"/>
+      <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0.933333 0 0 0 0 1 0 0 0 0.3 0"/>
+      <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow"/>
+      <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow" result="shape"/>
+    </filter>
+  </defs>
+  <g filter="url(#filter0_d)">
+    <path d="M150 50C165 70 170 90 170 110C170 148.66 138.66 180 100 180C61.3401 180 30 148.66 30 110C30 71.3401 61.3401 40 100 40C115 40 128 45 138 52" stroke="url(#paint0_linear)" stroke-width="12" stroke-linecap="round"/>
+    <rect x="85" y="65" width="30" height="30" transform="rotate(45 100 80)" stroke="url(#paint0_linear)" stroke-width="10" stroke-linejoin="round"/>
+    <circle cx="100" cy="135" r="22" stroke="url(#paint0_linear)" stroke-width="10"/>
+  </g>
+</svg>

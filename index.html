@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enso 8 | Minimal Experience</title>
+    <meta name="description" content="A dark, premium, minimal landing page with a cinematic and interactive experience.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Michroma&family=Outfit:wght@200;300;400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="src/style.css">
+    <style>
+        /* Essential critical overrides for layout positioning */
+        body {
+            background-color: #000000;
+        }
+    </style>
+</head>
+<body>
+    <div id="canvas-container"></div>
+    <div id="center-glow"></div>
+    <div id="mouse-glow"></div>
+    <div class="grain"></div>
+    
+    <div id="experience-trigger" style="cursor: default;">
+        <div id="hero-ui" class="hero-center">
+            <img id="stabilized-logo" class="logo-enso" src="/logo1.png" alt="Enso 8">
+            <nav id="navigation-menu" class="navbar navbar-links">
+                <a href="#" class="nav-item" data-target="experience-trigger">Home</a>
+                <a href="#" class="nav-item" data-target="services-section">Services</a>
+                <a href="#" class="nav-item" data-target="portfolios-section">Portfolios</a>
+                <a href="#" class="nav-item" data-target="team-section">Team</a>
+                <a href="#" class="nav-item" data-target="blogs-section">Blogs</a>
+                <a href="#" class="nav-item" data-target="about-section">About Us</a>
+                <a href="#" class="nav-item" data-target="contact-section">Contact</a>
+            </nav>
+        </div>
+
+        <div id="interaction-prompt">Scroll to Explore</div>
+
+    <header class="page-header" id="global-header" style="position: fixed; top: 0; left: 0; width: 100%; padding: 40px 5%; display: flex; justify-content: space-between; align-items: center; z-index: 100; opacity: 0; pointer-events: none;">
+        <div class="header-logo" style="font-family: 'Michroma', sans-serif; letter-spacing: 5px; font-size: 0.9rem; text-transform: lowercase;">enso 8</div>
+        <div class="hamburger">
+            <div class="line" style="width: 25px; height: 2px; background: white; margin: 5px; transition: all 0.3s;"></div>
+            <div class="line" style="width: 25px; height: 2px; background: white; margin: 5px; transition: all 0.3s;"></div>
+            <div class="line" style="width: 25px; height: 2px; background: white; margin: 5px; transition: all 0.3s;"></div>
+        </div>
+    </header>
+    </div>
+
+    <!-- UI Elements -->
+    <div id="status-label" style="position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); font-size: 9px; letter-spacing: 0.3em; opacity: 0; color: rgba(255,255,255,0.2); transition: opacity 1s;">ENSO SERIES 8 SYSTEM 1.0.4</div>
+
+    <div id="about-bg"></div>
+
+    <div id="about-section" class="scroll-section">
+        <div class="about-content">
+            <div class="manifesto manifesto-content manifesto-section manifesto-text">
+                <p class="reveal-text">People don't buy advertising. They buy the feeling when a story becomes theirs.</p>
+                <p class="reveal-text">At Enso 8, we understand that technology is a tool, not a replacement. AI handles the heavy lifting, the testing, and the optimization.</p>
+                <p class="reveal-text">We find the exact moment when a word shifts from clever to meaningful. We sense when a story stops being about your product and starts being about your customer's life.</p>
+                <p class="reveal-text">We are storytellers first. Technologists second. We don't automate emotion. We sharpen it.</p>
+                
+                <div class="manifesto-end reveal-text">
+                    <div class="about-label" style="font-size: 0.7rem; letter-spacing: 0.5em; color: rgba(255,255,255,0.4); margin-bottom: 20px;">ABOUT US</div>
+                    <div class="head-icon">
+                        <svg width="50" height="50" viewBox="0 0 100 100" style="fill: #00f2ff; filter: drop-shadow(0 0 10px #00f2ff);">
+                            <path d="M50,5 C30,5 15,20 15,40 C15,60 30,75 50,75 C70,75 85,60 85,40 C85,20 70,5 50,5 Z" opacity="0.3"/>
+                            <polygon points="50,25 55,38 68,38 58,48 62,62 50,54 38,62 42,48 32,38 45,38" fill="white"/>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <footer class="about-footer">
+            <div class="socials">
+                <div class="social-dot"></div>
+                <div class="social-dot"></div>
+                <div class="social-dot"></div>
+                <div class="social-dot"></div>
+            </div>
+        </footer>
+    </div>
+
+    <div id="services-section" class="scroll-section" style="opacity: 0; pointer-events: none; position: fixed; top: 120px; left: 0; width: 100%; height: 100%; z-index: 50; padding: 0 5%; font-family: var(--font-main); color: white;">
+        <div class="services-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; margin-top: 50px;">
+            <div class="service-card" style="background: rgba(255,255,255,0.02); padding: 30px; border-radius: 8px;"><h3>Concept & Direction</h3></div>
+            <div class="service-card" style="background: rgba(255,255,255,0.02); padding: 30px; border-radius: 8px;"><h3>Cinematography</h3></div>
+            <div class="service-card" style="background: rgba(255,255,255,0.02); padding: 30px; border-radius: 8px;"><h3>VFX & 3D Animation</h3></div>
+            <div class="service-card" style="background: rgba(255,255,255,0.02); padding: 30px; border-radius: 8px;"><h3>Sound Design</h3></div>
+        </div>
+    </div>
+
+    <div id="portfolios-section" class="scroll-section" style="opacity: 0; pointer-events: none; position: fixed; top: 120px; left: 0; width: 100%; height: 100%; z-index: 50; padding: 0 5%; font-family: var(--font-main); color: white;">
+        <div class="portfolio-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px;">
+            <div class="project-tile"><img src="/p1.jpg" alt="Project" style="width:100%; height:250px; object-fit:cover; border-radius: 8px; margin-bottom: 15px;"><span style="font-size: 1.2rem; letter-spacing: 2px;">Adidas Main Film</span></div>
+            <div class="project-tile"><img src="/p2.jpg" alt="Project" style="width:100%; height:250px; object-fit:cover; border-radius: 8px; margin-bottom: 15px;"><span style="font-size: 1.2rem; letter-spacing: 2px;">NBA Cup Promo</span></div>
+        </div>
+    </div>
+
+    <div id="team-section" class="scroll-section" style="opacity: 0; pointer-events: none; position: fixed; top: 120px; left: 0; width: 100%; height: 100%; z-index: 50; padding: 0 5%; font-family: var(--font-main); color: white;">
+        <div class="team-intro"><h2 style="text-align: center; font-size: 2rem; letter-spacing: 4px; margin-bottom: 50px;">Meet The Team</h2></div>
+        <div class="team-grid" style="display: flex; flex-wrap: wrap; gap: 30px; justify-content: center;">
+            <div class="team-member" style="text-align: center;">
+                <div class="member-photo" style="width: 150px; height: 150px; border-radius: 50%; background: #222; margin: 0 auto; box-shadow: 0 0 20px rgba(0, 240, 255, 0.2);"></div>
+                <p style="margin-top: 20px; font-weight: 400; font-size: 1.2rem; letter-spacing: 2px;">Muhammed Thaha Jasmine</p>
+                <span style="opacity: 0.6; font-size: 0.9em; letter-spacing: 1px;">CEO | Video Editor</span>
+            </div>
+        </div>
+    </div>
+
+    <div id="blogs-section" class="scroll-section" style="opacity: 0; pointer-events: none; position: fixed; top: 120px; left: 0; width: 100%; height: 100%; z-index: 50; padding: 0 5%; font-family: var(--font-main); color: white;">
+        <h2 class="section-title" style="font-size: 2rem; letter-spacing: 4px; margin-bottom: 40px;">Blogs</h2>
+        <div class="blog-cards" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;">
+            <div class="blog-card" style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); padding: 30px; border-radius: 8px;">
+                <span style="opacity: 0.5; font-size: 0.8rem; letter-spacing: 2px;">Article 01</span>
+                <p style="margin-top: 15px; font-size: 1.2rem; font-weight: 300;">Insight into AI Storytelling</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="contact-section" class="scroll-section" style="opacity: 0; pointer-events: none; position: fixed; top: 120px; left: 0; width: 100%; height: 100%; z-index: 50; padding: 0 5%; font-family: var(--font-main); color: white;">
+        <div class="contact-wrap" style="text-align: center; max-width: 700px; margin: 0 auto; margin-top: 10vh;">
+            <h2 style="font-size: 2.5rem; margin-bottom: 30px; font-weight: 200;">Let's build something that breaks through.</h2>
+            <p style="font-size: 1.2rem; opacity: 0.6;">Ready to tell a story that sells?</p>
+            <p class="cta-line" style="font-size: 1.2rem; color: var(--neon-blue); margin-top: 20px; cursor: pointer;">Let's talk over a cup of coffee.</p>
+            <div class="handshake-icon" style="font-size: 3.5rem; margin-top: 60px;">🤝</div>
+        </div>
+    </div>
+
+    <!-- Three.js and GSAP via CDN for immediate execution -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script type="module" src="/src/main.js"></script>
+</body>
+</html>

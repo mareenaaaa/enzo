@@ -1,0 +1,363 @@
+/* 
+  Enso 8 - Design System
+  Optimized for Grid-Stacked Cinematic Hero
+*/
+
+:root {
+    --deep-black: #141E30;
+    --dark-blue-grad: #3577D0;
+    --neon-blue: #00f0ff;
+    --deep-blue: #0066ff;
+    --text-white: rgba(255, 255, 255, 0.9);
+    --text-dim: rgba(255, 255, 255, 0.4);
+    --font-main: 'Michroma', sans-serif;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background: linear-gradient(135deg, var(--deep-black), var(--dark-blue-grad));
+    color: var(--text-white);
+    overflow: hidden;
+    font-family: var(--font-main);
+    -webkit-font-smoothing: antialiased;
+    height: 100vh;
+    width: 100vw;
+}
+
+#canvas-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    pointer-events: none;
+}
+
+/* Experience Trigger Overlay */
+#experience-trigger {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 10;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Interaction Prompt */
+#interaction-prompt {
+    position: absolute;
+    bottom: 50px;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.8em;
+    color: var(--neon-blue);
+    opacity: 0.5;
+    pointer-events: none;
+    transition: opacity 1s ease;
+    animation: pulse 3s infinite ease-in-out;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 0.2; transform: translateY(0); }
+    50% { opacity: 0.6; transform: translateY(-5px); }
+}
+
+/* --- THE STACKED HERO CENTER --- */
+.hero-center {
+    display: grid;
+    place-items: center; /* Centers both children exactly on top of each other */
+    position: relative;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+/* The Glowing Logo - Hidden by default, reveals after interaction */
+.logo-enso {
+    grid-area: 1 / 1; 
+    width: 680px; 
+    height: auto;
+    filter: none; 
+    opacity: 0; /* Hidden for initial scatter state */
+    display: none; /* Removed from flow entirely until needed */
+    pointer-events: none;
+    z-index: 1;
+}
+
+/* The Navigation Links */
+.navbar-links {
+    grid-area: 1 / 1; 
+    z-index: 999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 35px; /* User's tighter gap request */
+    opacity: 0; /* Animated by GSAP */
+    transform: scale(0.95);
+    transition: opacity 3s cubic-bezier(0.165, 0.84, 0.44, 1), transform 3s cubic-bezier(0.165, 0.84, 0.44, 1);
+    pointer-events: none; /* Allows clicks to pass through empty space */
+}
+
+.nav-item {
+    pointer-events: auto; /* Makes the actual words clickable */
+    cursor: pointer;
+    font-size: 14px;
+    text-decoration: none;
+    color: white; 
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: 400;
+    font-family: var(--font-main);
+    transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+    padding: 10px;
+    white-space: nowrap;
+}
+
+.nav-item:hover {
+    color: var(--neon-blue);
+    text-shadow: 0 0 20px rgba(0, 240, 255, 0.8);
+    letter-spacing: 5px;
+}
+
+/* Aesthetic Glows */
+#center-glow {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 85vw;
+    height: 85vh;
+    background: radial-gradient(circle, rgba(0, 102, 255, 0.1) 0%, rgba(0, 0, 0, 0) 75%);
+    z-index: 0;
+    pointer-events: none;
+    filter: blur(120px);
+}
+
+#mouse-glow {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(0, 238, 255, 0.05) 0%, rgba(0, 102, 255, 0.02) 40%, rgba(0, 0, 0, 0) 70%);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 2;
+    transform: translate(-50%, -50%);
+    filter: blur(50px);
+}
+
+/* Grain utility */
+.grain {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 100;
+    pointer-events: none;
+    opacity: 0.04;
+    background-image: url('https://grainy-gradients.vercel.app/noise.svg');
+    mix-blend-mode: overlay;
+}
+
+/* Status Label */
+#status-label {
+    position: fixed;
+    bottom: 25px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 8px;
+    letter-spacing: 0.4em;
+    color: var(--text-dim);
+    z-index: 20;
+    text-transform: uppercase;
+}
+
+/* --- ABOUT US LITERARY EXPERIENCE --- */
+#about-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at 60% 80%, rgba(53, 119, 208, 0.4) 0%, rgba(20, 30, 48, 1) 90%);
+    opacity: 0;
+    z-index: 0; /* sits at the very back */
+    pointer-events: none;
+    transition: opacity 3s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+#about-section {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    pointer-events: none;
+    z-index: 50; 
+    overflow-y: auto;
+    overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+    scrollbar-width: none; /* Firefox */
+}
+
+#about-section::-webkit-scrollbar { 
+    display: none; 
+}
+
+#about-section.active {
+    pointer-events: auto;
+}
+
+.about-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 50px 60px;
+    width: 100%;
+    min-height: 100px;
+    position: sticky;
+    top: 0;
+    z-index: 60;
+}
+
+.header-logo {
+    font-family: var(--font-main);
+    font-size: 16px;
+    letter-spacing: 3px;
+    color: var(--text-white);
+}
+
+.hamburger {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    cursor: pointer;
+}
+
+.hamburger .line {
+    width: 35px;
+    height: 2px;
+    background: rgba(255, 255, 255, 0.8);
+    transition: width 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.hamburger:hover .line:nth-child(2) {
+    width: 20px;
+}
+
+.about-content {
+    margin-top: 5vh;
+    padding-bottom: 20vh;
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    width: 100%;
+    position: relative;
+    z-index: 10;
+}
+
+.manifesto {
+    max-width: 700px; /* Editorial width constraint */
+    font-family: 'Outfit', sans-serif;
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 1.1rem;
+    line-height: 2.2;
+    font-weight: 300;
+    padding: 0 40px;
+    text-align: left;
+}
+
+/* Scroll Trigger Animation Classes */
+.manifesto .reveal-text {
+    margin-bottom: 50px;
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 1.8s cubic-bezier(0.165, 0.84, 0.44, 1), transform 1.8s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.manifesto .reveal-text.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* The Head Icon ending */
+.manifesto-end.reveal-text {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 120px;
+    opacity: 0;
+    transform: translateY(40px);
+}
+
+.manifesto-end.reveal-text.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.about-label {
+    font-family: var(--font-main);
+    letter-spacing: 0.5em;
+    font-size: 13px;
+    margin-bottom: 30px;
+    color: var(--text-white);
+}
+
+.about-footer {
+    position: fixed;
+    bottom: 50px;
+    left: 60px;
+    z-index: 60;
+}
+
+.socials {
+    display: flex;
+    gap: 20px;
+}
+
+.social-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.2);
+    transition: background 0.4s, transform 0.4s;
+    cursor: pointer;
+}
+
+.social-dot:hover {
+    background: var(--neon-blue);
+    transform: scale(1.6);
+    box-shadow: 0 0 10px rgba(0, 240, 255, 0.5);
+}
+
+/* The state after clicking About Us */
+.anti-gravity-active #canvas-container canvas {
+    filter: blur(10px);
+    opacity: 0.7;
+    transition: all 2s ease-in-out;
+}
+
+/* User's Exact Snipet Overlay logic */
+.navbar {
+    position: absolute;
+    z-index: 999; /* Put text on the very top */
+    pointer-events: none; /* Let clicks pass through empty space */
+}
+
+.nav-item {
+    pointer-events: auto; /* Make the actual words clickable */
+    cursor: pointer;
+}
