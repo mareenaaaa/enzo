@@ -1,294 +1,130 @@
 /**
- * Enso 8 - Cinematic Minimal Experience
- * Premium Particle System & GSAP Transitions
+ * Enso 8 - Cinematic Video Experience
  */
 
-// --- Constants & Config ---
-const MAIN_PARTICLE_COUNT = 15000;
-const AMBIENT_PARTICLE_COUNT = 4000;
-const NEON_CYAN = 0x00f0ff;
-const DEEP_BLUE = 0x0066ff;
-const LOGO_RADIUS = 3.6;
-
-// --- Three.js Setup ---
-const scene = new THREE.Scene();
-const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-const renderer = new THREE.WebGLRenderer({ 
-    antialias: true, 
-    alpha: true,
-    powerPreference: "high-performance" 
-});
-
-renderer.setSize(window.innerWidth, window.innerHeight);
-renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-renderer.domElement.id = 'canvas'; // Required for direct GSAP styling
-document.getElementById('canvas-container').appendChild(renderer.domElement);
-
-// --- Particle Systems ---
-
-// 1. Ambient Background Particles (Always floating)
-const ambientGeometry = new THREE.BufferGeometry();
-const ambientPositions = new Float32Array(AMBIENT_PARTICLE_COUNT * 3);
-const ambientVelocities = new Float32Array(AMBIENT_PARTICLE_COUNT);
-
-for(let i=0; i < AMBIENT_PARTICLE_COUNT; i++) {
-    const i3 = i * 3;
-    ambientPositions[i3] = (Math.random() - 0.5) * 40;
-    ambientPositions[i3+1] = (Math.random() - 0.5) * 40;
-    ambientPositions[i3+2] = (Math.random() - 0.5) * 20;
-    ambientVelocities[i] = 0.005 + Math.random() * 0.01;
-}
-ambientGeometry.setAttribute('position', new THREE.BufferAttribute(ambientPositions, 3));
-const ambientMaterial = new THREE.PointsMaterial({
-    size: 0.012,
-    color: DEEP_BLUE,
-    transparent: true,
-    opacity: 0.15,
-    blending: THREE.AdditiveBlending
-});
-const ambientSystem = new THREE.Points(ambientGeometry, ambientMaterial);
-scene.add(ambientSystem);
-
-// 2. Core Logo Particles (The ones that morph)
-const logoGeometry = new THREE.BufferGeometry();
-const currentPositions = new Float32Array(MAIN_PARTICLE_COUNT * 3);
-const scatteredPositions = new Float32Array(MAIN_PARTICLE_COUNT * 3);
-const targetPositions = new Float32Array(MAIN_PARTICLE_COUNT * 3);
-
-// Initialize with random floaters
-for(let i=0; i < MAIN_PARTICLE_COUNT; i++) {
-    const i3 = i * 3;
-    const r = 5 + Math.random() * 15;
-    const phi = Math.random() * Math.PI * 2;
-    const theta = Math.random() * Math.PI;
-    
-    scatteredPositions[i3] = r * Math.sin(theta) * Math.cos(phi);
-    scatteredPositions[i3+1] = r * Math.sin(theta) * Math.sin(phi);
-    scatteredPositions[i3+2] = r * Math.cos(theta);
-    
-    currentPositions[i3] = scatteredPositions[i3];
-    currentPositions[i3+1] = scatteredPositions[i3+1];
-    currentPositions[i3+2] = scatteredPositions[i3+2];
-}
-
-logoGeometry.setAttribute('position', new THREE.BufferAttribute(currentPositions, 3));
-const logoMaterial = new THREE.PointsMaterial({
-    size: 0.02,
-    color: NEON_CYAN,
-    transparent: true,
-    opacity: 0.6,
-    blending: THREE.AdditiveBlending,
-    sizeAttenuation: true
-});
-const logoSystem = new THREE.Points(logoGeometry, logoMaterial);
-scene.add(logoSystem);
-
-// --- Shape Generation Logic ---
-function generateLogo() {
-    const ptsPerShape = Math.floor(MAIN_PARTICLE_COUNT / 3);
-    
-    // 1. Enso Ring - Thicker and more cinematic
-    for(let i=0; i < ptsPerShape; i++) {
-        const i3 = i * 3;
-        const angle = (i / ptsPerShape) * Math.PI * 1.88 - (Math.PI * 0.95);
-        const thickness = (Math.random() - 0.5) * 0.15; // Added visual weight
-        targetPositions[i3] = Math.cos(angle) * (LOGO_RADIUS + thickness);
-        targetPositions[i3+1] = Math.sin(angle) * (LOGO_RADIUS + thickness);
-        targetPositions[i3+2] = (Math.random() - 0.5) * 0.1;
-    }
-    
-    // 2. Diamond (Core top) - Perfectly proportioned
-    for(let i=ptsPerShape; i < ptsPerShape * 2; i++) {
-        const i3 = i * 3;
-        const size = 0.72; // Larger to match reference
-        const offsetX = 0;
-        const offsetY = 0.8;
-        
-        const side = i % 4;
-        const t = Math.random();
-        const jitter = (Math.random() - 0.5) * 0.08;
-        let x, y;
-        if(side === 0) { x = t; y = 1-t; }
-        else if(side === 1) { x = 1-t; y = -t; }
-        else if(side === 2) { x = -t; y = -(1-t); }
-        else { x = -(1-t); y = t; }
-
-        targetPositions[i3] = (x * size + offsetX) + jitter;
-        targetPositions[i3+1] = (y * size + offsetY) + jitter;
-        targetPositions[i3+2] = (Math.random() - 0.5) * 0.08;
-    }
-    
-    // 3. Inner Circle (Core bottom) - Solid and balanced
-    for(let i=ptsPerShape * 2; i < MAIN_PARTICLE_COUNT; i++) {
-        const i3 = i * 3;
-        const angle = Math.random() * Math.PI * 2;
-        const r = 0.82 + (Math.random() - 0.5) * 0.12; // Slightly larger for better visual balance
-        const offsetX = 0;
-        const offsetY = -1.1; 
-        targetPositions[i3] = Math.cos(angle) * r + offsetX;
-        targetPositions[i3+1] = Math.sin(angle) * r + offsetY;
-        targetPositions[i3+2] = (Math.random() - 0.5) * 0.1;
-    }
-}
-generateLogo();
-
-// --- Abstract Human Head Generation (About Us) ---
-const headPositions = new Float32Array(MAIN_PARTICLE_COUNT * 3);
-function generateHeadShape() {
-    for (let i = 0; i < MAIN_PARTICLE_COUNT; i++) {
-        const i3 = i * 3;
-        let x, y, z;
-        let valid = false;
-        
-        while (!valid) {
-            x = (Math.random() - 0.5) * 4;
-            y = (Math.random() - 0.5) * 4;
-            z = (Math.random() - 0.5) * 0.8;
-            
-            const dx = x;
-            const dy = y - 0.6;
-            const cranium = (dx*dx*0.9 + dy*dy*1.1 + z*z < 1.0);
-            
-            let face = false;
-            // Face pointing right (x > 0)
-            if (x > 0 && x < 1.2 && y > -0.8 && y <= 0.6 && Math.abs(z) < 0.4) {
-               if (x < 1.0 + y * 0.2) face = true;
-            }
-            
-            let neck = false;
-            if (x > -0.5 && x < 0.3 && y > -1.5 && y <= -0.5 && Math.abs(z) < 0.3) {
-                neck = true;
-            }
-            
-            if (cranium || face || neck) {
-                valid = true;
-                // Hollow out center roughly (star)
-                const cx = 0.2, cy = 0.0;
-                const distToC = Math.abs(x - cx) + Math.abs(y - cy);
-                if (distToC < 0.35 && Math.abs(z) < 0.4) valid = false;
-            }
-        }
-        headPositions[i3] = x * 2.5; 
-        headPositions[i3+1] = y * 2.5;
-        headPositions[i3+2] = z * 2.5;
-    }
-}
-generateHeadShape();
-
-camera.position.z = 8;
-
-// --- Interaction Logic ---
-let state = 'scatter'; // scatter | inhale | stabilize
+const videoEl = document.getElementById('bg-video');
+let state = 'scatter'; // scatter | intro | about | services | portfolios | etc
 let isAnimating = false;
 
 const trigger = document.getElementById('experience-trigger');
-const prompt = document.getElementById('interaction-prompt');
-const nav = document.getElementById('navigation-menu');
 const stabilizedLogo = document.getElementById('stabilized-logo');
 
-function inhale() {
+// Custom Cursor Setup
+const cursor = document.createElement('div');
+cursor.id = 'custom-cursor';
+document.body.appendChild(cursor);
+
+window.addEventListener('mousemove', (e) => {
+    cursor.style.left = e.clientX + 'px';
+    cursor.style.top = e.clientY + 'px';
+});
+
+// Interactive hover effects for cursor
+const hoverTargets = document.querySelectorAll('a, button, .hover-target');
+hoverTargets.forEach(el => {
+    el.addEventListener('mouseenter', () => cursor.classList.add('cursor-hover'));
+    el.addEventListener('mouseleave', () => cursor.classList.remove('cursor-hover'));
+});
+
+
+function isVertical() {
+    return window.innerHeight > window.innerWidth;
+}
+
+// Ensure paths work whether using Vite (npm run dev) or Live Server (Port 5500/5501)
+const ROOT = (window.location.port === '5500' || window.location.port === '5501') ? './public' : '';
+
+function getVideoSrc(pageId, isReverse = false) {
+    const orientation = isVertical() ? 'vertical' : 'horizontal';
+    
+    // Explicitly requested to use intro.mp4 for the opening website
+    if (pageId === 'intro') {
+        return `${ROOT}/videos/intro.mp4`; 
+    }
+    
+    if (pageId === 'about') {
+        const ext = (orientation === 'horizontal' && !isReverse) ? 'webm' : 'mp4';
+        return `${ROOT}/videos/about ${orientation}${isReverse ? ' reverse' : ''}.${ext}`;
+    }
+    
+    if (pageId === 'contact') {
+        return `${ROOT}/videos/contact ${orientation}${isReverse ? ' reverse' : ''}.mp4`;
+    }
+    
+    // Fallback for general navigation
+    return `${ROOT}/videos/${orientation} utility${isReverse ? ' reverse' : ''}.mp4`;
+}
+
+function playVideo(src, onComplete, seamless = false) {
+    const startPlayback = () => {
+        videoEl.src = src;
+        videoEl.load();
+        videoEl.loop = false;
+        
+        let playPromise = videoEl.play();
+        if (playPromise !== undefined) {
+            playPromise.then(_ => {
+                if (!seamless) gsap.to(videoEl, { opacity: 1, duration: 0.5 });
+            }).catch(error => {
+                console.log("Auto-play was prevented", error);
+            });
+        }
+        
+        // Use an event listener for better reliability
+        videoEl.addEventListener('ended', () => {
+            if (onComplete) onComplete();
+        }, { once: true });
+        
+        // Backup timeout in case ended doesn't fire precisely
+        videoEl.addEventListener('timeupdate', () => {
+             if(videoEl.duration > 0 && videoEl.currentTime >= videoEl.duration - 0.2) {
+                 if (onComplete) {
+                     onComplete();
+                     onComplete = null; // prevent double firing
+                 }
+             }
+        });
+    };
+
+    if (seamless) {
+        startPlayback();
+    } else {
+        gsap.to(videoEl, { opacity: 0, duration: 0.3, onComplete: startPlayback });
+    }
+}
+
+function playIntro() {
     if(isAnimating) return;
     isAnimating = true;
-    state = 'inhale';
-    prompt.style.opacity = '0';
+    state = 'intro';
 
-    // 1. Morph to Logo
-    const startPos = new Float32Array(currentPositions);
-    const proxy = { t: 0 };
-    
-    gsap.to(proxy, {
-        t: 1,
-        duration: 3,
-        ease: "power4.inOut",
-        onUpdate: () => {
-            for(let i=0; i<currentPositions.length; i++) {
-                currentPositions[i] = startPos[i] + (targetPositions[i] - startPos[i]) * proxy.t;
-            }
-            logoGeometry.attributes.position.needsUpdate = true;
-        }
-    });
+    // Scale down the intro specifically so the logo is smaller, but keep it centered
+    gsap.set(videoEl, { scale: 0.65 });
 
-    // 2. Cinematic Blur & Staggered 'Drawing' Feel
-    // Instead of one big blur, we sweep the circle drawing
-    gsap.to(logoMaterial, { 
-        size: 0.08, 
-        opacity: 0.1, 
-        duration: 1.2, 
-        yoyo: true, 
-        repeat: 1, 
-        ease: "power2.inOut" 
-    });
-
-    // Outer Circle 'Drawing' Animation (progressive reveal)
-    const ptsPerShape = Math.floor(MAIN_PARTICLE_COUNT / 3);
-    // Actually, simple way is to stagger their final 'stabilize' size
-    
-    // 3. Stabilization Reveal
-    gsap.delayedCall(2.0, () => {
+    // Play intro video as the opening website sequence
+    playVideo(getVideoSrc('intro'), () => {
         state = 'stabilize';
         
-        // Fade out particles accurately
-        gsap.to(logoMaterial, { opacity: 0, duration: 2, ease: "power2.inOut" });
-
-        // Fade in solid logo.png - Full visibility
-        gsap.to(stabilizedLogo, { 
+        // Final UI reveal after intro completes
+        gsap.to('#center-nav', { 
             opacity: 1, 
-            duration: 3, 
-            ease: "power2.out",
-            onStart: () => {
-                stabilizedLogo.style.display = "block";
-            }
+            pointerEvents: 'auto',
+            duration: 2, 
+            ease: "power2.out"
         });
         
-        // Final UI reveal
-        gsap.to(nav, { 
-            opacity: 1, 
-            scale: 1, 
-            duration: 3, 
-            ease: "expo.out",
-            onStart: () => {
-                document.getElementById('status-label').style.opacity = '1';
-            }
-        });
+        gsap.to(document.getElementById('status-label'), { opacity: 1, duration: 2 });
         
         isAnimating = false;
-        startBreathing();
     });
 }
 
-function startBreathing() {
-    const tl = gsap.timeline({ repeat: -1, yoyo: true });
-    
-    // Breathing cycle for both the system and the solid image
-    tl.to([logoSystem.scale, stabilizedLogo], { 
-        x: 1.05, y: 1.05, z: 1.05, scale: 1.05,
-        duration: 5, ease: "sine.inOut" 
-    });
-    
-    // Subtle float for systemic feel
-    tl.to(logoSystem.position, { y: 0.1, duration: 5, ease: "sine.inOut" }, 0);
-}
+// Auto-play the intro sequence immediately on load instead of waiting for scroll
+window.addEventListener('DOMContentLoaded', () => {
+    // Slight delay to ensure everything is ready and avoid harsh loading blinks
+    setTimeout(playIntro, 500);
+});
 
-// Trigger inhale transition on scroll/wheel
-window.addEventListener('wheel', (e) => {
-    if(state === 'scatter' && e.deltaY > 0) {
-        inhale();
-    }
-}, { passive: true });
-
-// Touch support for mobile devices
-let touchStartY = 0;
-window.addEventListener('touchstart', (e) => {
-    touchStartY = e.touches[0].clientY;
-}, { passive: true });
-
-window.addEventListener('touchmove', (e) => {
-    if(state === 'scatter' && touchStartY > e.touches[0].clientY + 30) {
-        inhale();
-    }
-}, { passive: true });
-
-// --- Optional: Parallax & Glow ---
 let mouseX = 0, mouseY = 0;
 const mouseGlow = document.getElementById('mouse-glow');
 
@@ -304,43 +140,6 @@ window.addEventListener('mousemove', (e) => {
     });
 });
 
-// --- Main Loop ---
-function animate() {
-    requestAnimationFrame(animate);
-    
-    // Ambient Slow Drift
-    const time = Date.now() * 0.0001;
-    ambientSystem.rotation.x = time * 0.1;
-    ambientSystem.rotation.y = time * 0.15;
-    
-    // Slow camera lag parallax
-    camera.position.x += (mouseX - camera.position.x) * 0.05;
-    camera.position.y += (-mouseY - camera.position.y) * 0.05;
-    camera.lookAt(scene.position);
-
-    // Initial scatter rotation
-    if(state === 'scatter') {
-        logoSystem.rotation.y += 0.002;
-    } else if (state === 'about') {
-        // Subtle floating drift
-        logoSystem.rotation.y += 0.001; 
-        logoSystem.position.y += Math.sin(Date.now() * 0.001) * 0.001;
-    } else {
-        logoSystem.rotation.y *= 0.95; // Stop spinning slowly
-    }
-
-    renderer.render(scene, camera);
-}
-animate();
-
-// Resize handle
-window.addEventListener('resize', () => {
-    camera.aspect = window.innerWidth / window.innerHeight;
-    camera.updateProjectionMatrix();
-    renderer.setSize(window.innerWidth, window.innerHeight);
-});
-
-// Combined Navigation System matching the new HTML structure
 function initNavSystems() {
     const navLinks = document.querySelectorAll('.nav-item');
     
@@ -350,146 +149,51 @@ function initNavSystems() {
             const targetId = link.getAttribute('data-target');
             
             if (targetId === 'experience-trigger') {
-                window.location.reload(); // Simple robust home reset
+                window.location.reload(); 
                 return;
             }
             
-            if (targetId === 'about-section') {
-                startAboutTransition();
-            } else {
-                // Extract pageId (e.g. 'services' from 'services-section')
-                const pageId = targetId.split('-')[0];
-                startGenericTransition(pageId);
-            }
+            const pageId = targetId.split('-')[0];
+            startVideoTransition(pageId);
         });
     });
 }
 initNavSystems();
 
-// DEVELOPMENT SHORTCUT:
-// If you want the page to skip the hero entirely and start directly on the About Us screen, 
-// simply uncomment the line below:
-// startAboutTransition();
-
-function startGenericTransition(pageId) {
+function startVideoTransition(pageId) {
     if (state === pageId) return;
     state = pageId;
     
-    // The Layout Shift
-    gsap.to("#hero-ui", { filter: "blur(12px)", opacity: 0, duration: 2, ease: "power2.inOut", onComplete: () => {
-        document.getElementById('hero-ui').style.display = "none";
+    // UI Layout Shift
+    gsap.to("#hero-ui", { filter: "blur(12px)", opacity: 0, duration: 1, ease: "power2.inOut", onComplete: () => {
+        const heroUi = document.getElementById('hero-ui');
+        if (heroUi) heroUi.style.display = "none";
     }});
+    gsap.to("#center-nav", { opacity: 0, pointerEvents: 'none', duration: 1 });
     gsap.to(document.getElementById('status-label'), { opacity: 0, duration: 1 });
     
-    const aboutBg = document.getElementById('about-bg');
-    if(aboutBg) aboutBg.style.opacity = '1';
+    // Shift video up specifically for 'about' page so symbol moves up, otherwise center
+    const targetY = pageId === 'about' ? "-15vh" : "0vh";
+    gsap.to(videoEl, { scale: 1, y: targetY, duration: 1, ease: "power2.inOut" });
     
-    // Slight shift and distinct color mapping for generic pages
-    gsap.to(logoSystem.position, { x: 0, y: 0, z: -2, duration: 4, ease: "power2.inOut" });
-    if(pageId === 'services') gsap.to(logoMaterial.color, { r: 1.0, g: 0.2, b: 0.5, duration: 3 }); 
-    if(pageId === 'contact') gsap.to(logoMaterial.color, { r: 0.2, g: 1.0, b: 0.5, duration: 3 }); 
-    
-    // Generic Scatter Morph
-    for(let i=0; i < MAIN_PARTICLE_COUNT; i++) {
-        const i3 = i * 3;
-        scatteredPositions[i3] = (Math.random() - 0.5) * 12;
-        scatteredPositions[i3+1] = (Math.random() - 0.5) * 12;
-        scatteredPositions[i3+2] = (Math.random() - 0.5) * 12;
+    if (pageId === 'about') {
+        document.body.classList.add('anti-gravity-active');
     }
-    
-    const startPos2 = new Float32Array(currentPositions);
-    const proxy2 = { t: 0 };
-    gsap.to(proxy2, {
-        t: 1, 
-        duration: 2.5,
-        ease: "expo.inOut",
-        onUpdate: () => {
-            for(let i=0; i<currentPositions.length; i++) {
-                currentPositions[i] = startPos2[i] + (scatteredPositions[i] - startPos2[i]) * proxy2.t;
+
+    // Pass seamless = true to avoid fading through black, creating a perfect cut from the logo
+    playVideo(getVideoSrc(pageId), () => {
+        const section = document.getElementById(pageId + '-section');
+        if(section) {
+            section.classList.add('active');
+            section.style.pointerEvents = 'auto'; 
+            gsap.to(section, { opacity: 1, duration: 2, ease: "power2.out" });
+            
+            if (pageId === 'about') {
+                gsap.to(".manifesto-text", { opacity: 1, visibility: "visible", y: -20, duration: 2 });
+                gsap.to('.reveal-text', { opacity: 1, y: 0, stagger: 0.3, duration: 1.5 });
             }
-            logoGeometry.attributes.position.needsUpdate = true;
         }
     });
-    
-    const section = document.getElementById(pageId + '-section');
-    if(section) {
-        section.classList.add('active');
-        section.style.pointerEvents = 'auto'; // ensure clickabilty
-        gsap.to(section, { opacity: 1, duration: 2, ease: "power2.out", delay: 1 });
-        
-        // Reveal Global Header
-        gsap.to('#global-header', { opacity: 1, pointerEvents: 'auto', duration: 1, delay: 0.5 });
-    }
-}
-
-function startAboutTransition() {
-    state = 'about';
-    
-    // The Layout Shift (Matching your provided pattern)
-    gsap.to("#hero-ui", { filter: "blur(12px)", opacity: 0, duration: 2, ease: "power2.inOut", onComplete: () => {
-        document.getElementById('hero-ui').style.display = "none";
-    }});
-    gsap.to(document.getElementById('status-label'), { opacity: 0, duration: 1 });
-    
-    // Smooth transition of background
-    const aboutBg = document.getElementById('about-bg');
-    if(aboutBg) aboutBg.style.opacity = '1';
-    
-    console.log("Shatter sequence initiated...");
-    
-    // 4. Background Shift & CSS State (Deep Gradient + Blur)
-    document.body.style.background = "radial-gradient(circle, #1a0b2e 0%, #000000 100%)";
-    document.body.classList.add('anti-gravity-active');
-
-    // 2. Disassemble the Logo into Fragments (GSAP)
-    // We animate the position of every particle to a random 'drift' coordinate
-    const scatterTarget = new Float32Array(MAIN_PARTICLE_COUNT * 3);
-    for(let i=0; i<scatterTarget.length; i++) {
-        scatterTarget[i] = currentPositions[i] + (Math.random() - 0.5) * 20; // Expanded to 20
-    }
-    const shatterStart = new Float32Array(currentPositions);
-    const proxyShatter = { t: 0 };
-    gsap.to(proxyShatter, {
-        t: 1, duration: 3, ease: "expo.out",
-        onUpdate: () => {
-            for(let i=0; i<currentPositions.length; i++) {
-                currentPositions[i] = shatterStart[i] + (scatterTarget[i] - shatterStart[i]) * proxyShatter.t;
-            }
-            logoGeometry.attributes.position.needsUpdate = true;
-        }
-    });
-
-    // 2.5 Add the Anti-Gravity Blur & Bloom
-    gsap.to("#canvas", { filter: "blur(10px) brightness(1.2)", duration: 2 });
-
-    const aboutSection = document.getElementById('about-section');
-    if(aboutSection) {
-        aboutSection.classList.add('active');
-        
-        // Initial reveal of the section container
-        gsap.to(aboutSection, { opacity: 1, duration: 2, ease: "power2.out" });
-
-        // Reveal Global Header
-        gsap.to('#global-header', { opacity: 1, pointerEvents: 'auto', duration: 1, delay: 0.5 });
-        
-        // 3. Fade in the Manifesto text (The 'About Us' content)
-        gsap.to(".manifesto-text", {
-            opacity: 1, 
-            visibility: "visible", 
-            y: -20, 
-            duration: 2, 
-            delay: 1 
-        });
-        
-        // Trigger reveal-text elements with stagger logic as requested
-        gsap.to('.reveal-text', {
-            opacity: 1,
-            y: 0,
-            stagger: 0.3,
-            duration: 1.5,
-            delay: 1.5
-        });
-    }
 }
 
 function initScrollReveals() {
@@ -508,3 +212,4 @@ function initScrollReveals() {
 
     reveals.forEach(el => observer.observe(el));
 }
+initScrollReveals();

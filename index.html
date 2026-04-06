@@ -17,7 +17,11 @@
     </style>
 </head>
 <body>
-    <div id="canvas-container"></div>
+    <div id="video-container" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 0; overflow: hidden; background: #000; display: flex; align-items: center; justify-content: center;">
+        <video id="bg-video" playsinline muted style="width: 100%; height: 100%; object-fit: cover;">
+            <!-- Source will be injected via JS -->
+        </video>
+    </div>
     <div id="center-glow"></div>
     <div id="mouse-glow"></div>
     <div class="grain"></div>
@@ -25,62 +29,36 @@
     <div id="experience-trigger" style="cursor: default;">
         <div id="hero-ui" class="hero-center">
             <img id="stabilized-logo" class="logo-enso" src="/logo1.png" alt="Enso 8">
-            <nav id="navigation-menu" class="navbar navbar-links">
-                <a href="#" class="nav-item" data-target="experience-trigger">Home</a>
-                <a href="#" class="nav-item" data-target="services-section">Services</a>
-                <a href="#" class="nav-item" data-target="portfolios-section">Portfolios</a>
-                <a href="#" class="nav-item" data-target="team-section">Team</a>
-                <a href="#" class="nav-item" data-target="blogs-section">Blogs</a>
-                <a href="#" class="nav-item" data-target="about-section">About Us</a>
-                <a href="#" class="nav-item" data-target="contact-section">Contact</a>
-            </nav>
         </div>
-
-        <div id="interaction-prompt">Scroll to Explore</div>
-
-    <header class="page-header" id="global-header" style="position: fixed; top: 0; left: 0; width: 100%; padding: 40px 5%; display: flex; justify-content: space-between; align-items: center; z-index: 100; opacity: 0; pointer-events: none;">
-        <div class="header-logo" style="font-family: 'Michroma', sans-serif; letter-spacing: 5px; font-size: 0.9rem; text-transform: lowercase;">enso 8</div>
-        <div class="hamburger">
-            <div class="line" style="width: 25px; height: 2px; background: white; margin: 5px; transition: all 0.3s;"></div>
-            <div class="line" style="width: 25px; height: 2px; background: white; margin: 5px; transition: all 0.3s;"></div>
-            <div class="line" style="width: 25px; height: 2px; background: white; margin: 5px; transition: all 0.3s;"></div>
-        </div>
-    </header>
     </div>
+
+    <!-- Horizontal Center Navigation Menu -->
+    <nav id="center-nav" class="central-navigation">
+        <a href="#" class="nav-item hover-target" data-target="intro-section">Home</a>
+        <a href="#" class="nav-item hover-target" data-target="services-section">Services</a>
+        <a href="#" class="nav-item hover-target" data-target="portfolios-section">Portfolios</a>
+        <a href="#" class="nav-item hover-target" data-target="about-section">About Us</a>
+        <a href="#" class="nav-item hover-target" data-target="contact-section">Contact</a>
+    </nav>
 
     <!-- UI Elements -->
     <div id="status-label" style="position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); font-size: 9px; letter-spacing: 0.3em; opacity: 0; color: rgba(255,255,255,0.2); transition: opacity 1s;">ENSO SERIES 8 SYSTEM 1.0.4</div>
 
-    <div id="about-bg"></div>
-
     <div id="about-section" class="scroll-section">
-        <div class="about-content">
-            <div class="manifesto manifesto-content manifesto-section manifesto-text">
-                <p class="reveal-text">People don't buy advertising. They buy the feeling when a story becomes theirs.</p>
-                <p class="reveal-text">At Enso 8, we understand that technology is a tool, not a replacement. AI handles the heavy lifting, the testing, and the optimization.</p>
-                <p class="reveal-text">We find the exact moment when a word shifts from clever to meaningful. We sense when a story stops being about your product and starts being about your customer's life.</p>
-                <p class="reveal-text">We are storytellers first. Technologists second. We don't automate emotion. We sharpen it.</p>
-                
-                <div class="manifesto-end reveal-text">
-                    <div class="about-label" style="font-size: 0.7rem; letter-spacing: 0.5em; color: rgba(255,255,255,0.4); margin-bottom: 20px;">ABOUT US</div>
-                    <div class="head-icon">
-                        <svg width="50" height="50" viewBox="0 0 100 100" style="fill: #00f2ff; filter: drop-shadow(0 0 10px #00f2ff);">
-                            <path d="M50,5 C30,5 15,20 15,40 C15,60 30,75 50,75 C70,75 85,60 85,40 C85,20 70,5 50,5 Z" opacity="0.3"/>
-                            <polygon points="50,25 55,38 68,38 58,48 62,62 50,54 38,62 42,48 32,38 45,38" fill="white"/>
-                        </svg>
-                    </div>
-                </div>
+        <div class="about-content split-layout" style="display: flex; justify-content: space-between; width: 100%; padding: 0 10%; margin-top: 48vh; padding-bottom: 20vh;">
+            <div class="left-col" style="flex: 1;"></div>
+            
+            <div class="center-col manifesto-text" style="flex: 2; z-index: 10; text-align: center;">
+                <h1 class="reveal-text" style="font-family: var(--font-main); font-size: 1.2rem; letter-spacing: 0.2em; color: var(--neon-blue); margin-bottom: 20px;">ABOUT US</h1>
+                <p class="reveal-text" style="font-family: 'Outfit', sans-serif; font-size: 1.4rem; font-weight: 300; margin-bottom: 1em;">People don't buy advertising. They buy the feeling when a story becomes theirs.</p>
+                <p class="reveal-text" style="font-family: 'Outfit', sans-serif; font-size: 1.4rem; font-weight: 300; margin-bottom: 1em;">At Enso 8, we use technology for what it's good at and keep humans where they matter most. AI handles the speed, the testing, the optimisation.</p>
+                <p class="reveal-text" style="font-family: 'Outfit', sans-serif; font-size: 1.4rem; font-weight: 300; margin-bottom: 1em;">We turn data into direction, and direction into a story. We know when a clever line becomes a truthful one. When a message stops selling and starts belonging to your audience. That's the partnership.</p>
+                <p class="reveal-text" style="font-family: 'Outfit', sans-serif; font-size: 1.4rem; font-weight: 300; margin-bottom: 1em;">We are storytellers first. Technologists second. We don't automate emotion. We sharpen it.</p>
+                <p class="reveal-text" style="font-family: 'Outfit', sans-serif; font-size: 1.4rem; font-weight: 300; margin-bottom: 1em;">The result is work that doesn't shout for attention. It earns it. Great advertising doesn't announce itself. It simply works.</p>
             </div>
+            
+            <div class="right-col" style="flex: 1;"></div>
         </div>
-        
-        <footer class="about-footer">
-            <div class="socials">
-                <div class="social-dot"></div>
-                <div class="social-dot"></div>
-                <div class="social-dot"></div>
-                <div class="social-dot"></div>
-            </div>
-        </footer>
     </div>
 
     <div id="services-section" class="scroll-section" style="opacity: 0; pointer-events: none; position: fixed; top: 120px; left: 0; width: 100%; height: 100%; z-index: 50; padding: 0 5%; font-family: var(--font-main); color: white;">
@@ -93,19 +71,32 @@
     </div>
 
     <div id="portfolios-section" class="scroll-section" style="opacity: 0; pointer-events: none; position: fixed; top: 120px; left: 0; width: 100%; height: 100%; z-index: 50; padding: 0 5%; font-family: var(--font-main); color: white;">
-        <div class="portfolio-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px;">
-            <div class="project-tile"><img src="/p1.jpg" alt="Project" style="width:100%; height:250px; object-fit:cover; border-radius: 8px; margin-bottom: 15px;"><span style="font-size: 1.2rem; letter-spacing: 2px;">Adidas Main Film</span></div>
-            <div class="project-tile"><img src="/p2.jpg" alt="Project" style="width:100%; height:250px; object-fit:cover; border-radius: 8px; margin-bottom: 15px;"><span style="font-size: 1.2rem; letter-spacing: 2px;">NBA Cup Promo</span></div>
+        <div class="portfolio-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; grid-auto-rows: 250px;">
+            <div class="project-tile hover-target" style="grid-column: span 2; grid-row: span 2; position: relative; overflow: hidden; border-radius: 12px;">
+                <img src="/p1.jpg" alt="JBL" style="width:100%; height:100%; object-fit:cover; transition: transform 0.5s;">
+                <div style="position: absolute; bottom: 20px; left: 20px;"><span style="font-size: 1.5rem; letter-spacing: 2px; font-weight: bold;">JBL Sound</span></div>
+            </div>
+            <div class="project-tile hover-target" style="position: relative; overflow: hidden; border-radius: 12px;">
+                <img src="/p2.jpg" alt="Clikon" style="width:100%; height:100%; object-fit:cover; transition: transform 0.5s;">
+                <div style="position: absolute; bottom: 20px; left: 20px;"><span style="font-size: 1.2rem; letter-spacing: 2px;">Clikon</span></div>
+            </div>
+            <div class="project-tile hover-target" style="position: relative; overflow: hidden; border-radius: 12px; background: #111;">
+                <div style="position: absolute; bottom: 20px; left: 20px;"><span style="font-size: 1.2rem; letter-spacing: 2px;">Adidas</span></div>
+            </div>
         </div>
     </div>
 
-    <div id="team-section" class="scroll-section" style="opacity: 0; pointer-events: none; position: fixed; top: 120px; left: 0; width: 100%; height: 100%; z-index: 50; padding: 0 5%; font-family: var(--font-main); color: white;">
-        <div class="team-intro"><h2 style="text-align: center; font-size: 2rem; letter-spacing: 4px; margin-bottom: 50px;">Meet The Team</h2></div>
-        <div class="team-grid" style="display: flex; flex-wrap: wrap; gap: 30px; justify-content: center;">
-            <div class="team-member" style="text-align: center;">
-                <div class="member-photo" style="width: 150px; height: 150px; border-radius: 50%; background: #222; margin: 0 auto; box-shadow: 0 0 20px rgba(0, 240, 255, 0.2);"></div>
-                <p style="margin-top: 20px; font-weight: 400; font-size: 1.2rem; letter-spacing: 2px;">Muhammed Thaha Jasmine</p>
-                <span style="opacity: 0.6; font-size: 0.9em; letter-spacing: 1px;">CEO | Video Editor</span>
+    <div id="team-section" class="scroll-section" style="opacity: 0; pointer-events: none; position: fixed; top: 120px; left: 0; width: 100%; height: 100%; z-index: 50; padding: 0 5%; color: white;">
+        <div class="team-intro"><h2 style="text-align: center; font-size: 2rem; letter-spacing: 4px; margin-bottom: 80px; font-family: var(--font-main);">Meet The Team</h2></div>
+        <div class="team-grid" style="display: flex; flex-wrap: wrap; gap: 60px; justify-content: center;">
+            <div class="team-member hover-target" style="text-align: center; cursor: pointer; position: relative; width: 220px;">
+                <div class="member-photo" style="width: 180px; height: 180px; border-radius: 50%; background: #222; margin: 0 auto; box-shadow: 0 0 30px rgba(0, 240, 255, 0.1); overflow: hidden; transition: all 0.4s ease;">
+                    <div style="width: 100%; height: 100%; background: linear-gradient(45deg, #00f0ff, #3577D0); opacity: 0.5;"></div>
+                </div>
+                <div class="member-info" style="opacity: 0; transform: translateY(10px); transition: all 0.4s ease; margin-top: 25px;">
+                    <p style="font-weight: 500; font-size: 1.3rem; letter-spacing: 1px; font-family: 'Outfit', sans-serif;">Muhammed Thaha</p>
+                    <span style="color: var(--neon-blue); font-size: 0.85em; letter-spacing: 2px; text-transform: uppercase;">CEO</span>
+                </div>
             </div>
         </div>
     </div>
@@ -129,8 +120,7 @@
         </div>
     </div>
 
-    <!-- Three.js and GSAP via CDN for immediate execution -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <!-- GSAP for immediate execution -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script type="module" src="/src/main.js"></script>
 </body>
