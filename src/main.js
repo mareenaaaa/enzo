@@ -31,8 +31,8 @@ function isVertical() {
     return window.innerHeight > window.innerWidth;
 }
 
-// Ensure paths work whether using Vite (npm run dev) or Live Server (Port 5500/5501)
-const ROOT = (window.location.port === '5500' || window.location.port === '5501') ? './public' : '';
+// Smart Asset Path Resolution for Local Dev vs Production
+const ROOT = (window.location.protocol === 'file:' || window.location.port !== "") ? './public' : '.';
 
 function getVideoSrc(pageId, isReverse = false) {
     const orientation = isVertical() ? 'vertical' : 'horizontal';
