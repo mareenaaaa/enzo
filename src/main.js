@@ -35,24 +35,26 @@ function isVertical() {
 const ROOT = (window.location.port === '5500' || window.location.port === '5501') ? './public' : '';
 
 function getVideoSrc(pageId, isReverse = false) {
-    const orientation = isVertical() ? 'vertical' : 'horizontal';
+    const orientation = window.innerWidth > window.innerHeight ? 'horizontal' : 'vertical';
     
-    // Explicitly requested to use intro.mp4 for the opening website
     if (pageId === 'intro') {
-        return `${ROOT}/videos/intro.mp4`; 
+        return `${ROOT}/videos/intro.mp4`;
     }
     
     if (pageId === 'about') {
         const ext = (orientation === 'horizontal' && !isReverse) ? 'webm' : 'mp4';
         return `${ROOT}/videos/about ${orientation}${isReverse ? ' reverse' : ''}.${ext}`;
     }
+
+    if (pageId === 'portfolios') {
+        return `${ROOT}/videos/horizontal utility.mp4`;
+    }
     
     if (pageId === 'contact') {
         return `${ROOT}/videos/contact ${orientation}${isReverse ? ' reverse' : ''}.mp4`;
     }
     
-    // Fallback for general navigation
-    return `${ROOT}/videos/${orientation} utility${isReverse ? ' reverse' : ''}.mp4`;
+    return `${ROOT}/videos/${orientation} utility.mp4`;
 }
 
 function playVideo(src, onComplete, seamless = false) {
