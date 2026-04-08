@@ -425,45 +425,24 @@ body {
     box-shadow: 0 0 50px rgba(0, 240, 255, 0.4) !important;
 }
 
-/* Premium Custom Cursor System */
-#cursor-inner {
+/* Custom Cursor */
+#custom-cursor {
     position: fixed;
     top: 0;
     left: 0;
-    width: 6px;
-    height: 6px;
+    width: 10px;
+    height: 10px;
     background-color: white;
-    border-radius: 50%;
-    pointer-events: none;
-    z-index: 10000;
-    transform: translate(-50%, -50%);
-    mix-blend-mode: difference;
-    transition: width 0.3s, height 0.3s, background-color 0.3s;
-}
-
-#cursor-outer {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 35px;
-    height: 35px;
-    border: 1px solid rgba(255, 255, 255, 0.5);
     border-radius: 50%;
     pointer-events: none;
     z-index: 9999;
     transform: translate(-50%, -50%);
+    transition: width 0.3s cubic-bezier(0.165, 0.84, 0.44, 1), height 0.3s cubic-bezier(0.165, 0.84, 0.44, 1), background-color 0.3s;
     mix-blend-mode: difference;
-    transition: width 0.4s cubic-bezier(0.165, 0.84, 0.44, 1), height 0.4s cubic-bezier(0.165, 0.84, 0.44, 1), border 0.4s;
 }
-
-.cursor-hover-outer {
-    width: 60px !important;
-    height: 60px !important;
-    border: 1px solid white !important;
-}
-
-.cursor-hover-inner {
-    width: 25px !important;
-    height: 25px !important;
-    opacity: 0.1;
+.cursor-hover {
+    width: 40px !important;
+    height: 40px !important;
+    background-color: transparent !important;
+    border: 1px solid white;
 }

@@ -9,52 +9,21 @@ let isAnimating = false;
 const trigger = document.getElementById('experience-trigger');
 const stabilizedLogo = document.getElementById('stabilized-logo');
 
-// Custom Premium Cursor with Inertia
-const cursorInner = document.querySelector('#cursor-inner');
-const cursorOuter = document.querySelector('#cursor-outer');
-
-let mouseX = 0;
-let mouseY = 0;
-
-// GSAP QuickSetter for peak performance
-const innerX = gsap.quickSetter(cursorInner, "x", "px");
-const innerY = gsap.quickSetter(cursorInner, "y", "px");
-const outerX = gsap.quickSetter(cursorOuter, "x", "px");
-const outerY = gsap.quickSetter(cursorOuter, "y", "px");
+// Custom Cursor Setup
+const cursor = document.createElement('div');
+cursor.id = 'custom-cursor';
+document.body.appendChild(cursor);
 
 window.addEventListener('mousemove', (e) => {
-    mouseX = e.clientX;
-    mouseY = e.clientY;
-    
-    // Inner dot: Instant follow
-    innerX(mouseX);
-    innerY(mouseY);
+    cursor.style.left = e.clientX + 'px';
+    cursor.style.top = e.clientY + 'px';
 });
 
-// Outer ring: Premium trailing inertia via GSAP ticker
-gsap.ticker.add(() => {
-    // Smooth factor (0.1 = slow/heavy, 0.3 = fast/snappy)
-    const dt = 0.15;
-    const x = gsap.getProperty(cursorOuter, "x");
-    const y = gsap.getProperty(cursorOuter, "y");
-    
-    outerX(x + (mouseX - x) * dt);
-    outerY(y + (mouseY - y) * dt);
-});
-
-// Universal Hover Systems
-document.addEventListener('mouseover', (e) => {
-    if (e.target.classList.contains('hover-target') || e.target.closest('.hover-target')) {
-        cursorOuter.classList.add('cursor-hover-outer');
-        cursorInner.classList.add('cursor-hover-inner');
-    }
-});
-
-document.addEventListener('mouseout', (e) => {
-    if (e.target.classList.contains('hover-target') || e.target.closest('.hover-target')) {
-        cursorOuter.classList.remove('cursor-hover-outer');
-        cursorInner.classList.remove('cursor-hover-inner');
-    }
+// Interactive hover effects for cursor
+const hoverTargets = document.querySelectorAll('a, button, .hover-target');
+hoverTargets.forEach(el => {
+    el.addEventListener('mouseenter', () => cursor.classList.add('cursor-hover'));
+    el.addEventListener('mouseleave', () => cursor.classList.remove('cursor-hover'));
 });
 
 
@@ -156,10 +125,12 @@ window.addEventListener('DOMContentLoaded', () => {
     setTimeout(playIntro, 500);
 });
 
+let mouseX = 0, mouseY = 0;
 const mouseGlow = document.getElementById('mouse-glow');
 
 window.addEventListener('mousemove', (e) => {
-    // mouseX/mouseY already updated globally at top of file
+    mouseX = (e.clientX - window.innerWidth / 2) / 200;
+    mouseY = (e.clientY - window.innerHeight / 2) / 200;
     
     gsap.to(mouseGlow, {
         left: e.clientX,
