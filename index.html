@@ -8,7 +8,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Michroma&family=Outfit:wght@200;300;400&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="./src/style.css">
+    <link rel="stylesheet" href="src/style.css">
     <style>
         /* Essential critical overrides for layout positioning */
         body {
@@ -63,19 +63,15 @@
             </div>
         </header>
 
-        <div class="about-content split-layout" style="display: flex; justify-content: space-between; width: 100%; padding: 0 10%; margin-top: 42vh; padding-bottom: 20vh; z-index: 10;">
-            <div class="left-col" style="flex: 1;"></div>
-            
-            <div class="center-col manifesto-text" style="flex: 2.5; max-width: 800px; margin: 0 auto; text-align: center;">
-                <p class="reveal-text" style="font-family: 'Outfit', sans-serif; font-size: 1.05rem; font-weight: 300; line-height: 1.8; color: rgba(255, 255, 255, 0.6); letter-spacing: 0.3px; margin-bottom: 40px;">
+        <div class="about-content" style="display: flex; flex-direction: column; align-items: center; justify-content: center; width: 100%; padding: 0 24px; margin-top: 42vh; padding-bottom: 25vh; z-index: 10; box-sizing: border-box;">
+            <div class="manifesto-container" style="width: 100%; max-width: 720px; margin-left: auto; margin-right: auto; text-align: center; font-family: 'Outfit', sans-serif;">
+                <p class="reveal-text" style="font-size: 1.05rem; font-weight: 300; line-height: 1.7; color: rgba(255, 255, 255, 0.6); letter-spacing: 0.3px; margin-bottom: 40px;">
                     People don't buy advertising. They buy the feeling when a story becomes theirs. At Enso 8, we use technology for what it's good at and keep humans where they matter most. AI handles the speed, the testing, the optimisation. We turn data into direction, and direction into a story. We know when a clever line becomes a truthful one. When a message stops selling and starts belonging to your audience. That's the partnership. We are storytellers first. Technologists second. We don't automate emotion. We sharpen it. The result is work that doesn't shout for attention. It earns it. Great advertising doesn't announce itself. It simply works.
                 </p>
-                <div class="reveal-text">
-                    <a href="#" id="meet-team-btn" class="hover-target" style="font-family: 'Outfit', sans-serif; font-size: 0.7rem; letter-spacing: 0.3em; color: rgba(255, 255, 255, 0.65); text-decoration: none; text-transform: uppercase; border-bottom: 1px solid rgba(255,255,255,0.15); padding-bottom: 6px;">MEET THE TEAM <span style="margin-left: 5px;">&rarr;</span></a>
+                <div class="reveal-text" style="display: flex; justify-content: center; width: 100%;">
+                    <a href="#" id="meet-team-btn" class="hover-target" style="font-size: 0.75rem; letter-spacing: 0.3em; color: rgba(255, 255, 255, 0.65); text-decoration: none; text-transform: uppercase; border-bottom: 1px solid rgba(255,255,255,0.15); padding-bottom: 6px;">MEET THE TEAM <span style="margin-left: 5px;">&rarr;</span></a>
                 </div>
             </div>
-            
-        <div class="right-col" style="flex: 1;"></div>
         </div>
     </div>
 
@@ -88,19 +84,96 @@
         </div>
     </div>
 
-    <div id="portfolios-section" class="scroll-section" style="opacity: 0; pointer-events: none; position: fixed; top: 120px; left: 0; width: 100%; height: 100%; z-index: 50; padding: 0 5%; font-family: var(--font-main); color: white;">
-        <div class="portfolio-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; grid-auto-rows: 250px;">
-            <div class="project-tile hover-target" style="grid-column: span 2; grid-row: span 2; position: relative; overflow: hidden; border-radius: 12px;">
-                <img src="/p1.jpg" alt="JBL" style="width:100%; height:100%; object-fit:cover; transition: transform 0.5s;">
-                <div style="position: absolute; bottom: 20px; left: 20px;"><span style="font-size: 1.5rem; letter-spacing: 2px; font-weight: bold;">JBL Sound</span></div>
+    <div id="portfolios-section" class="scroll-section" style="opacity: 0; pointer-events: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 50; background: #000; overflow-y: auto; overflow-x: hidden; padding: 120px 0 100px 0;">
+        <!-- Shared Header for Portfolio Section -->
+        <header style="position: fixed; top: 0; width: 100%; display: flex; justify-content: space-between; align-items: center; padding: 40px 60px; z-index: 100; font-family: 'Outfit', sans-serif; background: linear-gradient(to bottom, #000 0%, transparent 100%);">
+            <div class="header-left">
+                <a href="#" class="brand-home-trigger hover-target" style="font-family: 'Outfit', sans-serif; font-size: 0.75rem; letter-spacing: 0.3em; color: white; text-transform: uppercase; font-weight: 400; text-decoration: none;">ENSO 8</a>
             </div>
-            <div class="project-tile hover-target" style="position: relative; overflow: hidden; border-radius: 12px;">
-                <img src="/p2.jpg" alt="Clikon" style="width:100%; height:100%; object-fit:cover; transition: transform 0.5s;">
-                <div style="position: absolute; bottom: 20px; left: 20px;"><span style="font-size: 1.2rem; letter-spacing: 2px;">Clikon</span></div>
+            <div class="header-right" style="display: flex; align-items: center; gap: 35px;">
+                <nav style="display: flex; gap: 30px; font-size: 0.65rem; letter-spacing: 0.3em; color: rgba(255,255,255,0.6); text-transform: uppercase; font-weight: 400;">
+                    <a href="#" class="nav-link hover-target" style="text-decoration: none; color: inherit;">ABOUT US</a>
+                    <a href="#" class="nav-link hover-target" style="text-decoration: none; color: inherit;">PORTFOLIO</a>
+                    <a href="#" class="nav-link hover-target" style="text-decoration: none; color: inherit;">SERVICES</a>
+                    <a href="#" class="nav-link hover-target" style="text-decoration: none; color: inherit;">BLOG</a>
+                </nav>
+                <a href="#" class="hello-btn hover-target" style="display: flex; align-items: center; gap: 8px; border: 1px solid rgba(255,255,255,0.3); padding: 8px 18px; border-radius: 20px; font-size: 0.65rem; letter-spacing: 0.2em; color: white; text-decoration: none; text-transform: uppercase; transition: all 0.3s ease;">
+                    HELLO <span>&rarr;</span>
+                </a>
             </div>
-            <div class="project-tile hover-target" style="position: relative; overflow: hidden; border-radius: 12px; background: #111;">
-                <div style="position: absolute; bottom: 20px; left: 20px;"><span style="font-size: 1.2rem; letter-spacing: 2px;">Adidas</span></div>
+        </header>
+
+        <div class="portfolio-container" style="max-width: 1100px; margin: 0 auto; padding: 0 40px;">
+            
+            <!-- Showcase Item 1: JBL -->
+            <div class="portfolio-showcase-item" style="display: flex; align-items: center; justify-content: space-between; gap: 80px; margin-bottom: 25vh; opacity: 1;">
+                <div class="project-info" style="flex: 1.2; opacity: 1;">
+                    <div class="project-tags" style="font-family: 'Outfit', sans-serif; font-size: 0.6rem; letter-spacing: 0.3em; color: var(--neon-blue); text-transform: uppercase; margin-bottom: 15px;">UI/UX • PRODUCT DESIGN</div>
+                    <h2 style="font-family: 'Michroma', sans-serif; font-size: 2.2rem; margin-bottom: 25px; color: white; letter-spacing: 2px;">JBL M3 MAX</h2>
+                    <p style="font-family: 'Outfit', sans-serif; font-size: 0.95rem; line-height: 1.7; color: rgba(255,255,255,0.6); margin-bottom: 35px; max-width: 450px;">
+                        A premium mobile interface designed for the next generation of audio control. We focused on tactile feedback and fluid animations to match JBL's sonic excellence.
+                    </p>
+                    <a href="#" class="hover-target" style="font-family: 'Outfit', sans-serif; font-size: 0.7rem; letter-spacing: 0.2em; color: white; text-decoration: none; border-bottom: 1px solid rgba(255,255,255,0.2); padding-bottom: 5px;">VIEW CASE STUDY &rarr;</a>
+                </div>
+                <div class="project-visual" style="flex: 1; display: flex; justify-content: flex-end; opacity: 1;">
+                    <div class="phone-mockup-wrapper" style="position: relative; width: 280px; height: 570px;">
+                        <div class="phone-frame" style="position: absolute; inset: 0; border: 12px solid #1a1a1a; border-radius: 40px; box-shadow: 0 50px 100px rgba(0,0,0,0.8), 0 0 20px rgba(0,240,255,0.1); z-index: 2; pointer-events: none;"></div>
+                        <div class="phone-screen" style="position: absolute; inset: 12px; border-radius: 30px; overflow: hidden; background: #000; z-index: 1;">
+                            <video autoplay muted loop playsinline style="width: 100%; height: 100%; object-fit: cover;">
+                                <source src="/videos/JBL_M3.mp4" type="video/mp4">
+                                <source src="/videos/vertical utility loop.mp4" type="video/mp4">
+                            </video>
+                        </div>
+                    </div>
+                </div>
             </div>
+
+            <!-- Showcase Item 2: CLIKON -->
+            <div class="portfolio-showcase-item" style="display: flex; align-items: center; justify-content: space-between; gap: 80px; margin-bottom: 25vh; opacity: 1; flex-direction: row-reverse;">
+                <div class="project-info" style="flex: 1.2; opacity: 1;">
+                    <div class="project-tags" style="font-family: 'Outfit', sans-serif; font-size: 0.6rem; letter-spacing: 0.3em; color: var(--neon-blue); text-transform: uppercase; margin-bottom: 15px;">APP DESIGN • E-COMMERCE</div>
+                    <h2 style="font-family: 'Michroma', sans-serif; font-size: 2.2rem; margin-bottom: 25px; color: white; letter-spacing: 2px;">CLIKON SMART</h2>
+                    <p style="font-family: 'Outfit', sans-serif; font-size: 0.95rem; line-height: 1.7; color: rgba(255,255,255,0.6); margin-bottom: 35px; max-width: 450px;">
+                        Redefining home appliance interaction through a minimal and intuitive mobile ecosystem. Smart living, simplified for the modern household.
+                    </p>
+                    <a href="#" class="hover-target" style="font-family: 'Outfit', sans-serif; font-size: 0.7rem; letter-spacing: 0.2em; color: white; text-decoration: none; border-bottom: 1px solid rgba(255,255,255,0.2); padding-bottom: 5px;">VIEW CASE STUDY &rarr;</a>
+                </div>
+                <div class="project-visual" style="flex: 1; display: flex; justify-content: flex-start; opacity: 1;">
+                    <div class="phone-mockup-wrapper" style="position: relative; width: 280px; height: 570px;">
+                        <div class="phone-frame" style="position: absolute; inset: 0; border: 12px solid #1a1a1a; border-radius: 40px; box-shadow: 0 50px 100px rgba(0,0,0,0.8), 0 0 20px rgba(0,240,255,0.1); z-index: 2; pointer-events: none;"></div>
+                        <div class="phone-screen" style="position: absolute; inset: 12px; border-radius: 30px; overflow: hidden; background: #000; z-index: 1;">
+                            <video autoplay muted loop playsinline style="width: 100%; height: 100%; object-fit: cover;">
+                                <source src="/videos/Clikon.mp4" type="video/mp4">
+                                <source src="/videos/vertical utility loop.mp4" type="video/mp4">
+                            </video>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Showcase Item 3: ADIDAS -->
+            <div class="portfolio-showcase-item" style="display: flex; align-items: center; justify-content: space-between; gap: 80px; margin-bottom: 25vh; opacity: 1;">
+                <div class="project-info" style="flex: 1.2; opacity: 1;">
+                    <div class="project-tags" style="font-family: 'Outfit', sans-serif; font-size: 0.6rem; letter-spacing: 0.3em; color: var(--neon-blue); text-transform: uppercase; margin-bottom: 15px;">BRANDING • ADVERTISING</div>
+                    <h2 style="font-family: 'Michroma', sans-serif; font-size: 2.2rem; margin-bottom: 25px; color: white; letter-spacing: 2px;">ADIDAS X CULT</h2>
+                    <p style="font-family: 'Outfit', sans-serif; font-size: 0.95rem; line-height: 1.7; color: rgba(255,255,255,0.6); margin-bottom: 35px; max-width: 450px;">
+                        A high-octane collaboration between sport and lifestyle. We created a visually aggressive digital campaign that pushed the boundaries of traditional urban athletics.
+                    </p>
+                    <a href="#" class="hover-target" style="font-family: 'Outfit', sans-serif; font-size: 0.7rem; letter-spacing: 0.2em; color: white; text-decoration: none; border-bottom: 1px solid rgba(255,255,255,0.2); padding-bottom: 5px;">VIEW CASE STUDY &rarr;</a>
+                </div>
+                <div class="project-visual" style="flex: 1; display: flex; justify-content: flex-end; opacity: 1;">
+                    <div class="phone-mockup-wrapper" style="position: relative; width: 280px; height: 570px;">
+                        <div class="phone-frame" style="position: absolute; inset: 0; border: 12px solid #1a1a1a; border-radius: 40px; box-shadow: 0 50px 100px rgba(0,0,0,0.8), 0 0 20px rgba(0,240,255,0.1); z-index: 2; pointer-events: none;"></div>
+                        <div class="phone-screen" style="position: absolute; inset: 12px; border-radius: 30px; overflow: hidden; background: #000; z-index: 1;">
+                            <video autoplay muted loop playsinline style="width: 100%; height: 100%; object-fit: cover;">
+                                <source src="/videos/Adidas.mp4" type="video/mp4">
+                                <source src="/videos/vertical utility loop.mp4" type="video/mp4">
+                            </video>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
 
@@ -134,35 +207,35 @@
             
             <!-- Column 1 -->
             <div class="team-col" style="display: flex; flex-direction: column; justify-content: flex-end; gap: 80px; padding-bottom: 5vh;">
-                <div class="member"><div class="circle avatar" style="width: 100px; height: 100px; background-image: url('./images/M_R_New.png'); background-size: cover; background-position: center top; box-shadow: 0 0 25px rgba(188, 120, 255, 0.2);"></div><div class="info">M R<br><span>CREATIVE DIRECTOR</span></div></div>
-                <div class="member"><div class="circle avatar" style="width: 100px; height: 100px; background-image: url('./images/Nibu_Samuel.jpg'); background-size: cover; background-position: center top; box-shadow: 0 0 25px rgba(188, 120, 255, 0.2);"></div><div class="info">Nibu Samuel<br><span>3D ANIMATOR | MOTION GRAPHICS</span></div></div>
-                <div class="member"><div class="circle avatar" style="width: 100px; height: 100px; background-image: url('./images/Nandagopan_P.png'); background-size: cover; background-position: center top; box-shadow: 0 0 25px rgba(188, 120, 255, 0.2);"></div><div class="info">Nandagopan P<br><span>SOUND MIXING ENGINEER</span></div></div>
+                <div class="member"><div class="circle avatar" style="width: 100px; height: 100px; background-image: url('public/images/M_R_New.png'); background-size: cover; background-position: center top; box-shadow: 0 0 25px rgba(188, 120, 255, 0.2);"></div><div class="info">M R<br><span>CREATIVE DIRECTOR</span></div></div>
+                <div class="member"><div class="circle avatar" style="width: 100px; height: 100px; background-image: url('public/images/Nibu_Samuel.jpg'); background-size: cover; background-position: center top; box-shadow: 0 0 25px rgba(188, 120, 255, 0.2);"></div><div class="info">Nibu Samuel<br><span>3D ANIMATOR | MOTION GRAPHICS</span></div></div>
+                <div class="member"><div class="circle avatar" style="width: 100px; height: 100px; background-image: url('public/images/Nandagopan_P.png'); background-size: cover; background-position: center top; box-shadow: 0 0 25px rgba(188, 120, 255, 0.2);"></div><div class="info">Nandagopan P<br><span>SOUND MIXING ENGINEER</span></div></div>
             </div>
 
             <!-- Column 2 -->
             <div class="team-col" style="display: flex; flex-direction: column; justify-content: center; gap: 15vh; padding-top: 5vh;">
-                <div class="member"><div class="circle avatar" style="width: 100px; height: 100px; background-image: url('./images/Amal_Krishna.png'); background-size: cover; background-position: center top; box-shadow: 0 0 25px rgba(188, 120, 255, 0.2);"></div><div class="info">Amal Krishna<br><span>HEAD OF 3D ANIMATION</span></div></div>
-                <div class="member"><div class="circle avatar" style="width: 100px; height: 100px; background-image: url('./images/Athul_Sudakaran.png'); background-size: cover; background-position: center top; box-shadow: 0 0 25px rgba(188, 120, 255, 0.2);"></div><div class="info">Athul Sudhakaran<br><span>EDITOR</span></div></div>
+                <div class="member"><div class="circle avatar" style="width: 100px; height: 100px; background-image: url('public/images/Amal_Krishna.png'); background-size: cover; background-position: center top; box-shadow: 0 0 25px rgba(188, 120, 255, 0.2);"></div><div class="info">Amal Krishna<br><span>HEAD OF 3D ANIMATION</span></div></div>
+                <div class="member"><div class="circle avatar" style="width: 100px; height: 100px; background-image: url('public/images/Athul_Sudakaran.png'); background-size: cover; background-position: center top; box-shadow: 0 0 25px rgba(188, 120, 255, 0.2);"></div><div class="info">Athul Sudhakaran<br><span>EDITOR</span></div></div>
             </div>
 
             <!-- Column 3 -->
             <div class="team-col" style="display: flex; flex-direction: column; justify-content: space-around; padding: 2vh 0;">
-                <div class="member"><div class="circle avatar" style="width: 110px; height: 110px; background-image: url('./images/Muhammed_Thaha_Jasmine.jpg'); background-size: cover; background-position: center top; box-shadow: 0 0 35px rgba(188, 120, 255, 0.3);"></div><div class="info">Muhammed Thaha<br><span>CHIEF EXECUTIVE OFFICER</span></div></div>
-                <div class="member"><div class="circle avatar" style="width: 100px; height: 100px; background-image: url('./images/Gokul_R_Nadh.png'); background-size: cover; background-position: center top; box-shadow: 0 0 25px rgba(188, 120, 255, 0.2);"></div><div class="info">Gokul R<br><span>SOUND DESIGNER</span></div></div>
+                <div class="member"><div class="circle avatar" style="width: 110px; height: 110px; background-image: url('public/images/Muhammed_Thaha_Jasmine.jpg'); background-size: cover; background-position: center top; box-shadow: 0 0 35px rgba(188, 120, 255, 0.3);"></div><div class="info">Muhammed Thaha<br><span>CHIEF EXECUTIVE OFFICER</span></div></div>
+                <div class="member"><div class="circle avatar" style="width: 100px; height: 100px; background-image: url('public/images/Gokul_R_Nadh.png'); background-size: cover; background-position: center top; box-shadow: 0 0 25px rgba(188, 120, 255, 0.2);"></div><div class="info">Gokul R<br><span>SOUND DESIGNER</span></div></div>
             </div>
 
             <!-- Column 4 -->
             <div class="team-col" style="display: flex; flex-direction: column; justify-content: center; gap: 40px; padding-top: 2vh;">
-                <div class="member"><div class="circle avatar" style="width: 90px; height: 90px; background-image: url('./images/Bharath_R.jpg'); background-size: cover; background-position: center top; box-shadow: 0 0 20px rgba(188, 120, 255, 0.15);"></div><div class="info">Bharath R<br><span>MANAGING DIRECTOR</span></div></div>
-                <div class="member"><div class="circle avatar" style="width: 90px; height: 90px; background-image: url('./images/Adith_C_Satheesh.png'); background-size: cover; background-position: center top; box-shadow: 0 0 20px rgba(188, 120, 255, 0.15);"></div><div class="info">Adith C<br><span>3D GENERALIST</span></div></div>
-                <div class="member"><div class="circle avatar" style="width: 90px; height: 90px; background-image: url('./images/K_O_Akhil.png'); background-size: cover; background-position: center top; box-shadow: 0 0 20px rgba(188, 120, 255, 0.15);"></div><div class="info">Akhil K<br><span>SENIOR CINEMATOGRAPHER</span></div></div>
+                <div class="member"><div class="circle avatar" style="width: 90px; height: 90px; background-image: url('public/images/Bharath_R.jpg'); background-size: cover; background-position: center top; box-shadow: 0 0 20px rgba(188, 120, 255, 0.15);"></div><div class="info">Bharath R<br><span>MANAGING DIRECTOR</span></div></div>
+                <div class="member"><div class="circle avatar" style="width: 90px; height: 90px; background-image: url('public/images/Adith_C_Satheesh.png'); background-size: cover; background-position: center top; box-shadow: 0 0 20px rgba(188, 120, 255, 0.15);"></div><div class="info">Adith C<br><span>3D GENERALIST</span></div></div>
+                <div class="member"><div class="circle avatar" style="width: 90px; height: 90px; background-image: url('public/images/K_O_Akhil.png'); background-size: cover; background-position: center top; box-shadow: 0 0 20px rgba(188, 120, 255, 0.15);"></div><div class="info">Akhil K<br><span>SENIOR CINEMATOGRAPHER</span></div></div>
             </div>
 
             <!-- Column 5 -->
             <div class="team-col" style="display: flex; flex-direction: column; justify-content: space-around; padding-bottom: 2vh;">
-                <div class="member"><div class="circle avatar" style="width: 90px; height: 90px; background-image: url('./images/Prince_Dirron_Gemini.jpg'); background-size: cover; background-position: center top; box-shadow: 0 0 20px rgba(188, 120, 255, 0.15);"></div><div class="info">Prince Dirron<br><span>CHIEF OPERATIONS OFFICER</span></div></div>
-                <div class="member"><div class="circle avatar" style="width: 90px; height: 90px; background-image: url('./images/Akshay_K_P.png'); background-size: cover; background-position: center top; box-shadow: 0 0 20px rgba(188, 120, 255, 0.15);"></div><div class="info">Akshay K<br><span>CINEMATOGRAPHER</span></div></div>
-                <div class="member"><div class="circle avatar" style="width: 90px; height: 90px; background-image: url('./images/Athul_Prakash.png'); background-size: cover; background-position: center top; box-shadow: 0 0 20px rgba(188, 120, 255, 0.15);"></div><div class="info">Athul Prakash<br><span>COLOURIST</span></div></div>
+                <div class="member"><div class="circle avatar" style="width: 90px; height: 90px; background-image: url('public/images/Prince_Dirron_Gemini.jpg'); background-size: cover; background-position: center top; box-shadow: 0 0 20px rgba(188, 120, 255, 0.15);"></div><div class="info">Prince Dirron<br><span>CHIEF OPERATIONS OFFICER</span></div></div>
+                <div class="member"><div class="circle avatar" style="width: 90px; height: 90px; background-image: url('public/images/Akshay_K_P.png'); background-size: cover; background-position: center top; box-shadow: 0 0 20px rgba(188, 120, 255, 0.15);"></div><div class="info">Akshay K<br><span>CINEMATOGRAPHER</span></div></div>
+                <div class="member"><div class="circle avatar" style="width: 90px; height: 90px; background-image: url('public/images/Athul_Prakash.png'); background-size: cover; background-position: center top; box-shadow: 0 0 20px rgba(188, 120, 255, 0.15);"></div><div class="info">Athul Prakash<br><span>COLOURIST</span></div></div>
             </div>
         </div>
         </div>
@@ -189,6 +262,6 @@
 
     <!-- GSAP for immediate execution -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script type="module" src="./src/main.js"></script>
+    <script type="module" src="/src/main.js"></script>
 </body>
 </html>

@@ -31,8 +31,8 @@ function isVertical() {
     return window.innerHeight > window.innerWidth;
 }
 
-// Smart Asset Path Resolution for Local Dev vs Production
-const ROOT = (window.location.protocol === 'file:' || window.location.port !== "") ? './public' : '.';
+// Ensure paths work whether using Vite (npm run dev) or Live Server (Port 5500/5501)
+const ROOT = (window.location.port === '5500' || window.location.port === '5501') ? './public' : '';
 
 function getVideoSrc(pageId, isReverse = false) {
     const orientation = isVertical() ? 'vertical' : 'horizontal';
@@ -192,6 +192,14 @@ function startVideoTransition(pageId) {
                 gsap.to(".manifesto-text", { opacity: 1, visibility: "visible", y: -20, duration: 2 });
                 gsap.to('.reveal-text', { opacity: 1, y: 0, stagger: 0.3, duration: 1.5 });
             }
+
+            if (pageId === 'portfolios') {
+                // Reset scroll position
+                const portfolioSec = document.getElementById('portfolios-section');
+                if (portfolioSec) portfolioSec.scrollTop = 0;
+                
+                // Content is now static per user request
+            }
         }
     });
 }
@@ -233,8 +241,7 @@ function backToHome() {
             duration: 1, 
             pointerEvents: 'auto',
             onComplete: () => {
-                // Step 2: Automatic delay before proceeding to Home, or wait for another click?
-                // User said "first reverse to about after that logo with navbar" implying a sequence.
+                // Step 2: Automatic delay before proceeding to Home
                 setTimeout(() => {
                     isAnimating = false; // Allow the final stage
                     executeFinalReverse();
