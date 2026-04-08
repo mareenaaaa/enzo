@@ -34,30 +34,48 @@
 
     <!-- Horizontal Center Navigation Menu -->
     <nav id="center-nav" class="central-navigation">
-        <a href="#" class="nav-item hover-target" data-target="intro-section">Home</a>
-        <a href="#" class="nav-item hover-target" data-target="services-section">Services</a>
-        <a href="#" class="nav-item hover-target" data-target="portfolios-section">Portfolios</a>
         <a href="#" class="nav-item hover-target" data-target="about-section">About Us</a>
+        <a href="#" class="nav-item hover-target" data-target="portfolios-section">Portfolio</a>
+        <a href="#" class="nav-item hover-target" data-target="services-section">Services</a>
+        <a href="#" class="nav-item hover-target" data-target="blogs-section">Blog</a>
         <a href="#" class="nav-item hover-target" data-target="contact-section">Contact</a>
     </nav>
 
     <!-- UI Elements -->
     <div id="status-label" style="position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); font-size: 9px; letter-spacing: 0.3em; opacity: 0; color: rgba(255,255,255,0.2); transition: opacity 1s;">ENSO SERIES 8 SYSTEM 1.0.4</div>
 
-    <div id="about-section" class="scroll-section">
-        <div class="about-content split-layout" style="display: flex; justify-content: space-between; width: 100%; padding: 0 10%; margin-top: 48vh; padding-bottom: 20vh;">
+    <div id="about-section" class="scroll-section" style="opacity: 0; pointer-events: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 50; background: transparent; overflow-y: auto; overflow-x: hidden;">
+        <!-- Top Navigation Header -->
+        <header style="position: sticky; top: 0; width: 100%; display: flex; justify-content: space-between; align-items: center; padding: 40px 60px; z-index: 100; font-family: 'Outfit', sans-serif;">
+            <div class="header-left">
+                <a href="#" class="brand-home-trigger hover-target" style="font-family: 'Outfit', sans-serif; font-size: 0.75rem; letter-spacing: 0.3em; color: white; text-transform: uppercase; font-weight: 400; text-decoration: none;">ENSO 8</a>
+            </div>
+            <div class="header-right" style="display: flex; align-items: center; gap: 35px;">
+                <nav style="display: flex; gap: 30px; font-size: 0.65rem; letter-spacing: 0.3em; color: rgba(255,255,255,0.6); text-transform: uppercase; font-weight: 400;">
+                    <a href="#" class="nav-link hover-target" style="text-decoration: none; color: inherit;">ABOUT US</a>
+                    <a href="#" class="nav-link hover-target" style="text-decoration: none; color: inherit;">PORTFOLIO</a>
+                    <a href="#" class="nav-link hover-target" style="text-decoration: none; color: inherit;">SERVICES</a>
+                    <a href="#" class="nav-link hover-target" style="text-decoration: none; color: inherit;">BLOG</a>
+                </nav>
+                <a href="#" class="hello-btn hover-target" style="display: flex; align-items: center; gap: 8px; border: 1px solid rgba(255,255,255,0.3); padding: 8px 18px; border-radius: 20px; font-size: 0.65rem; letter-spacing: 0.2em; color: white; text-decoration: none; text-transform: uppercase; transition: all 0.3s ease;">
+                    HELLO <span>&rarr;</span>
+                </a>
+            </div>
+        </header>
+
+        <div class="about-content split-layout" style="display: flex; justify-content: space-between; width: 100%; padding: 0 10%; margin-top: 42vh; padding-bottom: 20vh; z-index: 10;">
             <div class="left-col" style="flex: 1;"></div>
             
-            <div class="center-col manifesto-text" style="flex: 2; z-index: 10; text-align: center;">
-                <h1 class="reveal-text" style="font-family: var(--font-main); font-size: 1.2rem; letter-spacing: 0.2em; color: var(--neon-blue); margin-bottom: 20px;">ABOUT US</h1>
-                <p class="reveal-text" style="font-family: 'Outfit', sans-serif; font-size: 1.4rem; font-weight: 300; margin-bottom: 1em;">People don't buy advertising. They buy the feeling when a story becomes theirs.</p>
-                <p class="reveal-text" style="font-family: 'Outfit', sans-serif; font-size: 1.4rem; font-weight: 300; margin-bottom: 1em;">At Enso 8, we use technology for what it's good at and keep humans where they matter most. AI handles the speed, the testing, the optimisation.</p>
-                <p class="reveal-text" style="font-family: 'Outfit', sans-serif; font-size: 1.4rem; font-weight: 300; margin-bottom: 1em;">We turn data into direction, and direction into a story. We know when a clever line becomes a truthful one. When a message stops selling and starts belonging to your audience. That's the partnership.</p>
-                <p class="reveal-text" style="font-family: 'Outfit', sans-serif; font-size: 1.4rem; font-weight: 300; margin-bottom: 1em;">We are storytellers first. Technologists second. We don't automate emotion. We sharpen it.</p>
-                <p class="reveal-text" style="font-family: 'Outfit', sans-serif; font-size: 1.4rem; font-weight: 300; margin-bottom: 1em;">The result is work that doesn't shout for attention. It earns it. Great advertising doesn't announce itself. It simply works.</p>
+            <div class="center-col manifesto-text" style="flex: 2.5; max-width: 800px; margin: 0 auto; text-align: center;">
+                <p class="reveal-text" style="font-family: 'Outfit', sans-serif; font-size: 1.05rem; font-weight: 300; line-height: 1.8; color: rgba(255, 255, 255, 0.6); letter-spacing: 0.3px; margin-bottom: 40px;">
+                    People don't buy advertising. They buy the feeling when a story becomes theirs. At Enso 8, we use technology for what it's good at and keep humans where they matter most. AI handles the speed, the testing, the optimisation. We turn data into direction, and direction into a story. We know when a clever line becomes a truthful one. When a message stops selling and starts belonging to your audience. That's the partnership. We are storytellers first. Technologists second. We don't automate emotion. We sharpen it. The result is work that doesn't shout for attention. It earns it. Great advertising doesn't announce itself. It simply works.
+                </p>
+                <div class="reveal-text">
+                    <a href="#" id="meet-team-btn" class="hover-target" style="font-family: 'Outfit', sans-serif; font-size: 0.7rem; letter-spacing: 0.3em; color: rgba(255, 255, 255, 0.65); text-decoration: none; text-transform: uppercase; border-bottom: 1px solid rgba(255,255,255,0.15); padding-bottom: 6px;">MEET THE TEAM <span style="margin-left: 5px;">&rarr;</span></a>
+                </div>
             </div>
             
-            <div class="right-col" style="flex: 1;"></div>
+        <div class="right-col" style="flex: 1;"></div>
         </div>
     </div>
 
@@ -86,18 +104,67 @@
         </div>
     </div>
 
-    <div id="team-section" class="scroll-section" style="opacity: 0; pointer-events: none; position: fixed; top: 120px; left: 0; width: 100%; height: 100%; z-index: 50; padding: 0 5%; color: white;">
-        <div class="team-intro"><h2 style="text-align: center; font-size: 2rem; letter-spacing: 4px; margin-bottom: 80px; font-family: var(--font-main);">Meet The Team</h2></div>
-        <div class="team-grid" style="display: flex; flex-wrap: wrap; gap: 60px; justify-content: center;">
-            <div class="team-member hover-target" style="text-align: center; cursor: pointer; position: relative; width: 220px;">
-                <div class="member-photo" style="width: 180px; height: 180px; border-radius: 50%; background: #222; margin: 0 auto; box-shadow: 0 0 30px rgba(0, 240, 255, 0.1); overflow: hidden; transition: all 0.4s ease;">
-                    <div style="width: 100%; height: 100%; background: linear-gradient(45deg, #00f0ff, #3577D0); opacity: 0.5;"></div>
-                </div>
-                <div class="member-info" style="opacity: 0; transform: translateY(10px); transition: all 0.4s ease; margin-top: 25px;">
-                    <p style="font-weight: 500; font-size: 1.3rem; letter-spacing: 1px; font-family: 'Outfit', sans-serif;">Muhammed Thaha</p>
-                    <span style="color: var(--neon-blue); font-size: 0.85em; letter-spacing: 2px; text-transform: uppercase;">CEO</span>
-                </div>
+    <div id="team-section" class="scroll-section" style="opacity: 0; pointer-events: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 60; background: radial-gradient(circle at center, rgba(30,10,50,0.8) 0%, #000000 70%); overflow: hidden; display: flex; flex-direction: column; align-items: center; justify-content: center; font-family: 'Outfit', sans-serif;">
+        <!-- Shared Header for Team Section -->
+        <header style="position: absolute; top: 0; width: 100%; display: flex; justify-content: space-between; align-items: center; padding: 40px 60px; z-index: 100; font-family: 'Outfit', sans-serif;">
+            <div class="header-left">
+                <a href="#" class="brand-home-trigger hover-target" style="font-family: 'Outfit', sans-serif; font-size: 0.75rem; letter-spacing: 0.3em; color: white; text-transform: uppercase; font-weight: 400; text-decoration: none;">ENSO 8</a>
             </div>
+            <div class="header-right" style="display: flex; align-items: center; gap: 35px;">
+                <nav style="display: flex; gap: 30px; font-size: 0.65rem; letter-spacing: 0.3em; color: rgba(255,255,255,0.6); text-transform: uppercase; font-weight: 400;">
+                    <a href="#" class="nav-link hover-target" style="text-decoration: none; color: inherit;">ABOUT US</a>
+                    <a href="#" class="nav-link hover-target" style="text-decoration: none; color: inherit;">PORTFOLIO</a>
+                    <a href="#" class="nav-link hover-target" style="text-decoration: none; color: inherit;">SERVICES</a>
+                    <a href="#" class="nav-link hover-target" style="text-decoration: none; color: inherit;">BLOG</a>
+                </nav>
+                <a href="#" class="hello-btn hover-target" style="display: flex; align-items: center; gap: 8px; border: 1px solid rgba(255,255,255,0.3); padding: 8px 18px; border-radius: 20px; font-size: 0.65rem; letter-spacing: 0.2em; color: white; text-decoration: none; text-transform: uppercase; transition: all 0.3s ease;">
+                    HELLO <span>&rarr;</span>
+                </a>
+            </div>
+        </header>
+
+        <!-- Massive Background Typography -->
+        <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; pointer-events: none; color: white; font-weight: 900; font-family: 'Outfit', sans-serif; text-transform: uppercase; line-height: 0.85; overflow: hidden;">
+            <div style="position: absolute; top: 8%; left: 24%; font-size: 6.5rem; opacity: 0.8; letter-spacing: -4px;">Meet</div>
+            <div style="position: absolute; top: 46%; left: 50%; transform: translateX(-50%); font-size: 6.5rem; opacity: 0.8; letter-spacing: -4px;">The</div>
+            <div style="position: absolute; top: 82%; left: 24%; font-size: 6.5rem; opacity: 0.8; letter-spacing: -4px;">Team</div>
+        </div>
+
+        <div class="team-grid-container" style="position: relative; z-index: 10; width: 95%; height: 90%; display: flex; justify-content: space-between; padding: 20px 2%;">
+            
+            <!-- Column 1 -->
+            <div class="team-col" style="display: flex; flex-direction: column; justify-content: flex-end; gap: 80px; padding-bottom: 5vh;">
+                <div class="member"><div class="circle avatar" style="width: 100px; height: 100px; background-image: url('public/images/M_R_New.png'); background-size: cover; background-position: center top; box-shadow: 0 0 25px rgba(188, 120, 255, 0.2);"></div><div class="info">M R<br><span>CREATIVE DIRECTOR</span></div></div>
+                <div class="member"><div class="circle avatar" style="width: 100px; height: 100px; background-image: url('public/images/Nibu_Samuel.jpg'); background-size: cover; background-position: center top; box-shadow: 0 0 25px rgba(188, 120, 255, 0.2);"></div><div class="info">Nibu Samuel<br><span>3D ANIMATOR | MOTION GRAPHICS</span></div></div>
+                <div class="member"><div class="circle avatar" style="width: 100px; height: 100px; background-image: url('public/images/Nandagopan_P.png'); background-size: cover; background-position: center top; box-shadow: 0 0 25px rgba(188, 120, 255, 0.2);"></div><div class="info">Nandagopan P<br><span>SOUND MIXING ENGINEER</span></div></div>
+            </div>
+
+            <!-- Column 2 -->
+            <div class="team-col" style="display: flex; flex-direction: column; justify-content: center; gap: 15vh; padding-top: 5vh;">
+                <div class="member"><div class="circle avatar" style="width: 100px; height: 100px; background-image: url('public/images/Amal_Krishna.png'); background-size: cover; background-position: center top; box-shadow: 0 0 25px rgba(188, 120, 255, 0.2);"></div><div class="info">Amal Krishna<br><span>HEAD OF 3D ANIMATION</span></div></div>
+                <div class="member"><div class="circle avatar" style="width: 100px; height: 100px; background-image: url('public/images/Athul_Sudakaran.png'); background-size: cover; background-position: center top; box-shadow: 0 0 25px rgba(188, 120, 255, 0.2);"></div><div class="info">Athul Sudhakaran<br><span>EDITOR</span></div></div>
+            </div>
+
+            <!-- Column 3 -->
+            <div class="team-col" style="display: flex; flex-direction: column; justify-content: space-around; padding: 2vh 0;">
+                <div class="member"><div class="circle avatar" style="width: 110px; height: 110px; background-image: url('public/images/Muhammed_Thaha_Jasmine.jpg'); background-size: cover; background-position: center top; box-shadow: 0 0 35px rgba(188, 120, 255, 0.3);"></div><div class="info">Muhammed Thaha<br><span>CHIEF EXECUTIVE OFFICER</span></div></div>
+                <div class="member"><div class="circle avatar" style="width: 100px; height: 100px; background-image: url('public/images/Gokul_R_Nadh.png'); background-size: cover; background-position: center top; box-shadow: 0 0 25px rgba(188, 120, 255, 0.2);"></div><div class="info">Gokul R<br><span>SOUND DESIGNER</span></div></div>
+            </div>
+
+            <!-- Column 4 -->
+            <div class="team-col" style="display: flex; flex-direction: column; justify-content: center; gap: 40px; padding-top: 2vh;">
+                <div class="member"><div class="circle avatar" style="width: 90px; height: 90px; background-image: url('public/images/Bharath_R.jpg'); background-size: cover; background-position: center top; box-shadow: 0 0 20px rgba(188, 120, 255, 0.15);"></div><div class="info">Bharath R<br><span>MANAGING DIRECTOR</span></div></div>
+                <div class="member"><div class="circle avatar" style="width: 90px; height: 90px; background-image: url('public/images/Adith_C_Satheesh.png'); background-size: cover; background-position: center top; box-shadow: 0 0 20px rgba(188, 120, 255, 0.15);"></div><div class="info">Adith C<br><span>3D GENERALIST</span></div></div>
+                <div class="member"><div class="circle avatar" style="width: 90px; height: 90px; background-image: url('public/images/K_O_Akhil.png'); background-size: cover; background-position: center top; box-shadow: 0 0 20px rgba(188, 120, 255, 0.15);"></div><div class="info">Akhil K<br><span>SENIOR CINEMATOGRAPHER</span></div></div>
+            </div>
+
+            <!-- Column 5 -->
+            <div class="team-col" style="display: flex; flex-direction: column; justify-content: space-around; padding-bottom: 2vh;">
+                <div class="member"><div class="circle avatar" style="width: 90px; height: 90px; background-image: url('public/images/Prince_Dirron_Gemini.jpg'); background-size: cover; background-position: center top; box-shadow: 0 0 20px rgba(188, 120, 255, 0.15);"></div><div class="info">Prince Dirron<br><span>CHIEF OPERATIONS OFFICER</span></div></div>
+                <div class="member"><div class="circle avatar" style="width: 90px; height: 90px; background-image: url('public/images/Akshay_K_P.png'); background-size: cover; background-position: center top; box-shadow: 0 0 20px rgba(188, 120, 255, 0.15);"></div><div class="info">Akshay K<br><span>CINEMATOGRAPHER</span></div></div>
+                <div class="member"><div class="circle avatar" style="width: 90px; height: 90px; background-image: url('public/images/Athul_Prakash.png'); background-size: cover; background-position: center top; box-shadow: 0 0 20px rgba(188, 120, 255, 0.15);"></div><div class="info">Athul Prakash<br><span>COLOURIST</span></div></div>
+            </div>
+        </div>
         </div>
     </div>
 
@@ -120,8 +187,13 @@
         </div>
     </div>
 
-    <!-- GSAP for immediate execution -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script type="module" src="/src/main.js"></script>
+    <!-- Shared Premium Cursor Structure -->
+    <div id="cursor-inner"></div>
+    <div id="cursor-outer"></div>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/ScrollTrigger.min.js"></script>
+    <script type="module" src="src/main.js"></script>
 </body>
 </html>

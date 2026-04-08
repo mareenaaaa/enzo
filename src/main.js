@@ -9,21 +9,52 @@ let isAnimating = false;
 const trigger = document.getElementById('experience-trigger');
 const stabilizedLogo = document.getElementById('stabilized-logo');
 
-// Custom Cursor Setup
-const cursor = document.createElement('div');
-cursor.id = 'custom-cursor';
-document.body.appendChild(cursor);
+// Custom Premium Cursor with Inertia
+const cursorInner = document.querySelector('#cursor-inner');
+const cursorOuter = document.querySelector('#cursor-outer');
+
+let mouseX = 0;
+let mouseY = 0;
+
+// GSAP QuickSetter for peak performance
+const innerX = gsap.quickSetter(cursorInner, "x", "px");
+const innerY = gsap.quickSetter(cursorInner, "y", "px");
+const outerX = gsap.quickSetter(cursorOuter, "x", "px");
+const outerY = gsap.quickSetter(cursorOuter, "y", "px");
 
 window.addEventListener('mousemove', (e) => {
-    cursor.style.left = e.clientX + 'px';
-    cursor.style.top = e.clientY + 'px';
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+    
+    // Inner dot: Instant follow
+    innerX(mouseX);
+    innerY(mouseY);
 });
 
-// Interactive hover effects for cursor
-const hoverTargets = document.querySelectorAll('a, button, .hover-target');
-hoverTargets.forEach(el => {
-    el.addEventListener('mouseenter', () => cursor.classList.add('cursor-hover'));
-    el.addEventListener('mouseleave', () => cursor.classList.remove('cursor-hover'));
+// Outer ring: Premium trailing inertia via GSAP ticker
+gsap.ticker.add(() => {
+    // Smooth factor (0.1 = slow/heavy, 0.3 = fast/snappy)
+    const dt = 0.15;
+    const x = gsap.getProperty(cursorOuter, "x");
+    const y = gsap.getProperty(cursorOuter, "y");
+    
+    outerX(x + (mouseX - x) * dt);
+    outerY(y + (mouseY - y) * dt);
+});
+
+// Universal Hover Systems
+document.addEventListener('mouseover', (e) => {
+    if (e.target.classList.contains('hover-target') || e.target.closest('.hover-target')) {
+        cursorOuter.classList.add('cursor-hover-outer');
+        cursorInner.classList.add('cursor-hover-inner');
+    }
+});
+
+document.addEventListener('mouseout', (e) => {
+    if (e.target.classList.contains('hover-target') || e.target.closest('.hover-target')) {
+        cursorOuter.classList.remove('cursor-hover-outer');
+        cursorInner.classList.remove('cursor-hover-inner');
+    }
 });
 
 
@@ -98,8 +129,8 @@ function playIntro() {
     isAnimating = true;
     state = 'intro';
 
-    // Scale down the intro specifically so the logo is smaller, but keep it centered
-    gsap.set(videoEl, { scale: 0.65 });
+    // Scale down the intro drastically so the massive native logo appears premium and minimal
+    gsap.set(videoEl, { scale: 0.45 });
 
     // Play intro video as the opening website sequence
     playVideo(getVideoSrc('intro'), () => {
@@ -125,12 +156,10 @@ window.addEventListener('DOMContentLoaded', () => {
     setTimeout(playIntro, 500);
 });
 
-let mouseX = 0, mouseY = 0;
 const mouseGlow = document.getElementById('mouse-glow');
 
 window.addEventListener('mousemove', (e) => {
-    mouseX = (e.clientX - window.innerWidth / 2) / 200;
-    mouseY = (e.clientY - window.innerHeight / 2) / 200;
+    // mouseX/mouseY already updated globally at top of file
     
     gsap.to(mouseGlow, {
         left: e.clientX,
@@ -173,7 +202,7 @@ function startVideoTransition(pageId) {
     gsap.to(document.getElementById('status-label'), { opacity: 0, duration: 1 });
     
     // Shift video up specifically for 'about' page so symbol moves up, otherwise center
-    const targetY = pageId === 'about' ? "-15vh" : "0vh";
+    const targetY = pageId === 'about' ? "-5vh" : "0vh";
     gsap.to(videoEl, { scale: 1, y: targetY, duration: 1, ease: "power2.inOut" });
     
     if (pageId === 'about') {
@@ -213,3 +242,105 @@ function initScrollReveals() {
     reveals.forEach(el => observer.observe(el));
 }
 initScrollReveals();
+
+function backToHome() {
+    if (isAnimating) return;
+    
+    const teamSec = document.getElementById('team-section');
+    const isFromTeam = teamSec && teamSec.style.opacity === "1" || teamSec.classList.contains('active');
+
+    if (isFromTeam) {
+        isAnimating = true;
+        // Step 1: Reverse back to About manifesto UI
+        gsap.to(teamSec, { opacity: 0, duration: 0.8, onComplete: () => {
+            teamSec.style.pointerEvents = 'none';
+        }});
+        
+        gsap.to('.about-content', { 
+            opacity: 1, 
+            scale: 1, 
+            duration: 1, 
+            pointerEvents: 'auto',
+            onComplete: () => {
+                // Step 2: Automatic delay before proceeding to Home, or wait for another click?
+                // User said "first reverse to about after that logo with navbar" implying a sequence.
+                setTimeout(() => {
+                    isAnimating = false; // Allow the final stage
+                    executeFinalReverse();
+                }, 1200); // 1.2s "breathing space" on About Manifesto
+            }
+        });
+    } else {
+        executeFinalReverse();
+    }
+}
+
+function executeFinalReverse() {
+    if (isAnimating) return;
+    isAnimating = true;
+
+    // Fade out current sections
+    const activeSection = document.querySelector('.scroll-section.active');
+    const aboutContent = document.querySelector('.about-content');
+
+    if (activeSection) {
+        gsap.to(activeSection, { opacity: 0, duration: 0.8, onComplete: () => {
+            activeSection.classList.remove('active');
+            activeSection.style.pointerEvents = 'none';
+        }});
+    }
+    
+    // Ensure about content is also faded out
+    if (aboutContent) {
+        gsap.to(aboutContent, { opacity: 0, duration: 0.8 });
+    }
+
+    // Play reverse video
+    const reverseSrc = getVideoSrc('about', true); 
+    playVideo(reverseSrc, () => {
+        // Restore landing UI
+        const heroUi = document.getElementById('hero-ui');
+        if (heroUi) {
+            heroUi.style.display = "flex";
+            gsap.to(heroUi, { filter: "blur(0px)", opacity: 1, duration: 1.5, ease: "power2.out" });
+        }
+        
+        gsap.to(videoEl, { scale: 0.45, y: "0vh", duration: 1.5, ease: "power2.inOut" });
+        
+        gsap.to('#center-nav', { opacity: 1, pointerEvents: 'auto', duration: 1.5, delay: 0.5 });
+        gsap.to(document.getElementById('status-label'), { opacity: 1, duration: 1.5 });
+        
+        state = 'stabilize';
+        isAnimating = false;
+        document.body.classList.remove('anti-gravity-active');
+    }, true); 
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    // Brand Home Trigger Listener
+    document.addEventListener('click', (e) => {
+        if (e.target.classList.contains('brand-home-trigger')) {
+            e.preventDefault();
+            backToHome();
+        }
+    });
+
+    // Handle Meet The Team Click
+    const meetTeamBtn = document.getElementById('meet-team-btn');
+    if (meetTeamBtn) {
+        meetTeamBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            // hide about content, show team section
+            gsap.to('.about-content', { opacity: 0, scale: 0.95, duration: 0.8, pointerEvents: 'none' });
+            const teamSec = document.getElementById('team-section');
+            teamSec.style.pointerEvents = 'auto';
+            gsap.to(teamSec, { opacity: 1, duration: 1.5, ease: "power2.out" });
+            
+            // Stagger animation for members
+            gsap.fromTo('.team-col .member', 
+                { y: 30, opacity: 0 },
+                { y: 0, opacity: 1, stagger: 0.1, duration: 1, ease: "back.out(1.7)", delay: 0.5 }
+            );
+        });
+    }
+});
